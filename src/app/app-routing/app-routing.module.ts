@@ -15,7 +15,9 @@ const routes: Routes = [
 	{ path: 'services', component: ServicesComponent },
 	{ path: 'reservation', component: ReservationComponent },
 	{ path: 'contacts', component: ContactsComponent },
-	{ path: 'login', component: LoginComponent }
+	{ path: 'login', component: LoginComponent },
+	{ path: 'admin', loadChildren: '../modules/admin/admin.module#AdminModule' },
+	{ path: 'customer', loadChildren: '../modules/customer/customer.module#CustomerModule' }
 ];
 
 @NgModule({
@@ -23,4 +25,3 @@ const routes: Routes = [
 	exports: [RouterModule]
 })
 export class AppRoutingModule { }
-// { path: 'home', loadChildren: './../home/home/home.module#HomeModule' }

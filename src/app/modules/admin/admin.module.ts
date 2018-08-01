@@ -1,10 +1,15 @@
+import { ReservationsComponent } from './components/reservations/reservations.component';
+import { AdminRoutingModule } from './modules/admin-routing/admin-routing.module';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
+	imports: [
+		AdminRoutingModule
+	],
+	declarations: [
+		HomeComponent,
+		ReservationsComponent
+	]
 })
 export class AdminModule { }

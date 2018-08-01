@@ -5,20 +5,17 @@
   </div>
   <div class="row">
     <div class="container">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="loginForm" novalidate>
         <div class="form-group">
           <div class="col-12">
-            <label for="email">Имейл</label>
+            <label for="user">Потребителско име</label>
           </div>
           <div class="col-12 col-sm-6">
-            <input formControlName="email" id="email" type="text" class="form-control" required>
+            <input formControlName="username" id="user" type="text" class="form-control" required>
           </div>
           <div class="col-12 col-sm-6">
-            <div class="text-danger" *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
+            <div class="text-danger" *ngIf="loginForm.get('username').hasError('required') && loginForm.get('username').touched">
               Полето за имейл е задължително!
-            </div>
-            <div class="text-danger" *ngIf="loginForm.get('email').hasError('pattern') && loginForm.get('email').touched">
-              Невалиден имейл!
             </div>
           </div>
         </div>
@@ -36,7 +33,7 @@
           </div>
         </div>
         <div class="col-12 col-sm-6">
-          <button type="submit">Вписване</button>
+          <button class="btn btn-primary" (click)="onSubmit()">Вписване</button>
         </div>
       </form>
     </div>

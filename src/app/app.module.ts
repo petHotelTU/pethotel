@@ -1,3 +1,4 @@
+import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '../../node_modules/@angular/forms';
 import { NgModule } from '@angular/core';
@@ -19,6 +20,8 @@ import { DeclarationComponent } from './components/declaration/declaration.compo
 import {GMapModule} from 'primeng/gmap';
 import {CalendarModule} from 'primeng/calendar';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { PublicService } from './services/public.service';
+import { CustomerModule } from './modules/customer/customer.module';
 
 
 @NgModule({
@@ -45,7 +48,9 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 		PDFExportModule,
 		BrowserAnimationsModule
 	],
-	providers: [],
+	providers: [
+		PublicService
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

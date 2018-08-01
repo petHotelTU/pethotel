@@ -1,5 +1,8 @@
+import { LoginModel } from './../../models/binding-models/public-models/login-model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PublicService } from '../../services/public.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-login',
@@ -9,12 +12,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
 	loginForm: FormGroup;
-	constructor(private fb: FormBuilder) {
+	constructor(private router: Router, private publicService: PublicService, private fb: FormBuilder) {
 		this.loginForm = this.fb.group({
-			email: ['',
+			username: ['',
 			[
-				Validators.required,
-				Validators.pattern(/^[a-z0-9_]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/ig)
+				Validators.required
 			]
 			],
 			password: ['',
@@ -27,4 +29,13 @@ export class LoginComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	onSubmit(): void {
+		if (this.loginForm.valid) {
+			const loginModel: LoginModel = this.loginForm.value;
+			this.publicService.login(loginModel).subscribe((token: string) => {
+
+			});
+
+		}
+	}
 }

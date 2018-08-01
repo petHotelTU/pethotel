@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="form-group">
+    <h3>Контакти</h3>
+    <hr>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'420px'}"></p-gmap>
+    </div>
+    <div class="col-12 col-sm-6">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <label for="email">Имейл</label>
+          <input formControlName="email" id="email" type="email" class="form-control" required>
+          <div class="text-danger" *ngIf="contactForm.get('email').hasError('required') && contactForm.get('email').touched">
+            Полето за имейл е задължително!
+          </div>
+          <div class="text-danger" *ngIf="contactForm.get('email').hasError('pattern') && contactForm.get('email').touched">
+            Невалиден имейл!
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="about">Относно</label>
+          <input formControlName="subject" id="about" type="text" class="form-control" required>
+          <div class="text-danger" *ngIf="contactForm.get('subject').hasError('required') && contactForm.get('subject').touched">
+              Полето за тема е задължително!
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="msg">Съобщение</label>
+          <textarea formControlName="message" id="msg" class="form-control" required></textarea>
+          <div class="text-danger" *ngIf="contactForm.get('message').hasError('required') && contactForm.get('message').touched">
+              Съобщението е задължително!
+            </div>
+        </div>
+        <div class="form-group">
+          <re-captcha (resolved)="resolved($event)" siteKey="6LeDcmUUAAAAAEerpDa6E98kTEHKNvkyQ0mjQiaO"></re-captcha>
+        </div>
+        <div class="form-group mb-7">
+          <button type="submit" class="btn btn-primary">Изпрати</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="form-group">
+    Pet Hotel е идеалното място за вашият домашен любимец. Предоставяме широка гама услуги, които обаче налагат представянето
+    на някои документи, които следва да са в изряден вид:
+  </div>
+  <div class="form-group">
+    <ul>
+      <li>паспорт с всички ваксинации</li>
+      <li>попълнена декларация за постъпване</li>
+      <li>попълнен въпросник</li>
+    </ul>
+
+  </div>
+  <div class="form-group">
+    За да се възползвате от предлаганите от нас услуги следва да попълните представените по-долу формуляри. В тях се съдържа
+    основна информация за домашният ви любимец и минимално необходимата за нашите ветеринарни специалисти. Благодарим ви
+    за проявеното разбиране!
+  </div>
+  <div class="form-group">
+    <ngb-tabset justify="center">
+      <ngb-tab title="Декларация">
+        <ng-template ngbTabContent>
+          <div class="container" style="margin-top: 20px;">
+            <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+              <app-declaration></app-declaration>
+            </kendo-pdf-export>
+            <div class="form-group" style="margin-top: 25px; margin-bottom: 90px;">
+              <button class="form-control col-12 col-sm-3" kendo-button (click)="pdf.saveAs('declaration.pdf')">
+                Запази, като PDF...
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Въпросник">
+        <ng-template ngbTabContent>
+          <div class="container" style="margin-top: 20px;">
+            <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+              <app-questions></app-questions>
+            </kendo-pdf-export>
+            <div class="form-group" style="margin-top: 25px; margin-bottom: 90px;">
+              <button class="form-control col-12 col-sm-3" kendo-button (click)="pdf.saveAs('declaration.pdf')">
+                Запази, като PDF...
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

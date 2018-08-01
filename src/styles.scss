@@ -1,0 +1,11 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans&subset=cyrillic);
+
+.footer {
+  height: 40px;
+  position: fixed;
+  padding-bottom: 10px;
+  bottom: 0%;
+  width: 100%;
+  opacity: 1;
+}

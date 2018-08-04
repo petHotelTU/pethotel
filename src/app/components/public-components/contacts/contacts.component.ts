@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { } from '@types/googlemaps';
-import { PublicService } from '../../services/public.service';
+import { PublicService } from '../../../services/public.service';
 import { Subscription } from 'rxjs';
-import { ContactModel } from '../../models/binding-models/public-models/contact-model';
+import { ContactModel } from '../../../models/binding-models/public-models/contact-model';
 
 @Component({
 	selector: 'app-contacts',

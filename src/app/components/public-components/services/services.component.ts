@@ -1,6 +1,6 @@
-import { PublicService } from './../../services/public.service';
+import { PublicService } from '../../../services/public.service';
 import { Component, OnInit } from '@angular/core';
-import { HotelProduct } from '../../models/view-models/public-models/hotel-product';
+import { HotelProduct } from '../../../models/view-models/public-models/hotel-product';
 import { Observable } from 'rxjs';
 
 @Component({

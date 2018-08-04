@@ -1,5 +1,10 @@
 export class TokenModel {
-	userId: number;
-	userName: string;
-	role: string;
+	user_name: string;
+	fullName: string;
+	authorities: string[];
+	email: string;
+
+	constructor() {
+		this.authorities = [];
+	}
 }

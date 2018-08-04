@@ -6,21 +6,23 @@ import { Observable } from 'rxjs';
 import { HotelProduct } from '../models/view-models/public-models/hotel-product';
 import { LoginModel } from '../models/binding-models/public-models/login-model';
 
+export const baseURL = 'http://192.168.10.221:8080/';
+
 @Injectable()
 export class PublicService {
 
 	constructor(private httpClient: HttpClient) { }
 
 	getHotelServices(): Observable<HotelProduct[]> {
-		return this.httpClient.get<HotelProduct[]>('http://192.168.10.221:8080/api/getHotelServices');
+		return this.httpClient.get<HotelProduct[]>(baseURL + 'api/getHotelServices');
 	}
 
 	sendMessage(model: ContactModel, captchaToken: string): Observable<void> {
 		const httpParams = new HttpParams().append('g-recaptcha-response', captchaToken);
-		return this.httpClient.post<void>('http://192.168.10.221:8080/api/sendEmail', model, { params: httpParams });
+		return this.httpClient.post<void>(baseURL + 'api/sendEmail', model, { params: httpParams });
 	}
 
 	login(model: LoginModel): Observable<string> {
-		return this.httpClient.post<string>('http://192.168.10.221:8080/api/login', model);
+		return this.httpClient.post<string>(baseURL + 'api/login', model);
 	}
 }

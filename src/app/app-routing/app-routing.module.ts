@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { HomeComponent } from '../components/home/home.component';
-import { RequirementsComponent } from '../components/requirements/requirements.component';
-import { ServicesComponent } from '../components/services/services.component';
-import { ContactsComponent } from '../components/contacts/contacts.component';
-import { LoginComponent } from '../components/login/login.component';
-import { ReservationComponent } from '../components/reservation/reservation.component';
+import { RequirementsComponent } from '../components/public-components/requirements/requirements.component';
+import { ServicesComponent } from '../components/public-components/services/services.component';
+import { ReservationComponent } from '../components/public-components/reservation/reservation.component';
+import { ContactsComponent } from '../components/public-components/contacts/contacts.component';
+import { LoginComponent } from '../components/public-components/login/login.component';
+import { ReservationsComponent } from '../components/admin-components/reservations/reservations.component';
+import { OverviewComponent } from '../components/customer-components/overview/overview.component';
+import { ReferencesComponent } from '../components/admin-components/references/references.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,8 +18,9 @@ const routes: Routes = [
 	{ path: 'reservation', component: ReservationComponent },
 	{ path: 'contacts', component: ContactsComponent },
 	{ path: 'login', component: LoginComponent },
-	{ path: 'admin', loadChildren: '../modules/admin/admin.module#AdminModule' },
-	{ path: 'customer', loadChildren: '../modules/customer/customer.module#CustomerModule' }
+	{ path: 'admin/reservations', component: ReservationsComponent},
+	{ path: 'admin/references', component: ReferencesComponent},
+	{ path: 'customer/overview', component: OverviewComponent }
 ];
 
 @NgModule({

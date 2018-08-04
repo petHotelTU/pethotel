@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { TokenModel } from '../models/token/token-model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class LocalstorageService {
 	private _token: string;
 
-	constructor() { }
+	constructor(private router: Router) {
+		this._token = localStorage.getItem('access_token');
+	}
 
 	get token(): string {
 		return this._token;
@@ -18,9 +21,13 @@ export class LocalstorageService {
 	parseToken(): TokenModel {
 		const base64Url = this._token.split('.')[1];
 		const base64 = base64Url.replace('-', '+').replace('_', '/');
-		console.log(JSON.parse(window.atob(base64)));
-		const tokenModel: TokenModel = JSON.parse(window.atob(base64));
-		return tokenModel;
+		const tokenModel = JSON.parse(window.atob(base64));
+		let token = new TokenModel();
+		token.authorities = tokenModel.authorities;
+		token.fullName = tokenModel.fullName;
+		token.email = tokenModel.email;
+		token.user_name = tokenModel.user_name;
+		return token;
 	}
 
 	login(): void {

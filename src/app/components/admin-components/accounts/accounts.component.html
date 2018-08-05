@@ -25,21 +25,41 @@
     <p style="margin: 30px; text-align: center;">Искате ли да изтриете {{selectedAccount.name}}?</p>
     <kendo-dialog-actions>
       <button kendoButton (click)="onDeleteSubmitted()">Да</button>
-      <button kendoButton (click)="onDialogClosed" >Не</button>
+      <button kendoButton (click)="onDialogClosed">Не</button>
     </kendo-dialog-actions>
   </kendo-dialog>
   <kendo-dialog title="Активиране на акаунт" *ngIf="isActivateDialogOpened" (close)="onDialogClosed()" [minWidth]="250" [width]="450">
-
-    <kendo-dialog-actions>
-      <button kendoButton (click)="onDeleteSubmitted()">Активирай</button>
-      <button kendoButton (click)="onDialogClosed" >Отказ</button>
-    </kendo-dialog-actions>
+    <div class="form-group">
+      <small class="col-12">Потребителско име</small>
+      <input class="col-8 form-control" type="text" id="username">
+    </div>
+    <div class="form-group">
+      <small class="col-12 ">Имейл</small>
+      <input class="col-8 form-control" type="email" id="email">
+    </div>
+    <div class="form-group row">
+      <div class="col-8">
+        <small class="col-6">Парола</small>
+        <input class="form-control" type="password" id="password">
+      </div>
+      <div class="col-4 mt-3">
+        <button class="btn">Генерирай</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <button class="btn" (click)="onDeleteSubmitted()">Активирай</button>
+      </div>
+      <div class="col-6">
+        <button class="btn" (click)="onDialogClosed">Отказ</button>
+      </div>
+    </div>
   </kendo-dialog>
   <kendo-dialog title="Редактиране на акаунт" *ngIf="isEditDialogOpened" (close)="onDialogClosed()" [minWidth]="250" [width]="450">
 
     <kendo-dialog-actions>
       <button kendoButton (click)="onDeleteSubmitted()">Запази</button>
-      <button kendoButton (click)="onDialogClosed" >Отказ</button>
+      <button kendoButton (click)="onDialogClosed">Отказ</button>
     </kendo-dialog-actions>
   </kendo-dialog>
 </div>

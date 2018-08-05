@@ -13,45 +13,74 @@ import { AccountViewModel } from '../../../models/view-models/admin-models/accou
 })
 export class AccountsComponent implements OnInit, OnDestroy {
 	isDeleteDialogOpened: boolean;
-	accountName: string;
+	isActivateDialogOpened: boolean;
+	isEditDialogOpened: boolean;
 
-	private accountId: number;
+	selectedAccount: AccountViewModel;
+	accounts: Observable<AccountViewModel[]>;
+
 	private subscription: Subscription;
 	constructor(private adminService: AdminService) {
-		this.subscription = new Subscription();
 		this.isDeleteDialogOpened = false;
+		this.isActivateDialogOpened = false;
+		this.isEditDialogOpened = false;
+
+		this.subscription = new Subscription();
 	}
 
 	ngOnInit(): void {
+		this.accounts = this.adminService.getAccounts().pipe();
 	}
 
-	onActivationButtonClicked(accountId: number): void {
-		this.subscription.add(this.adminService.activateAccount(accountId)
-			.subscribe(() => {
-				alert('Акаунта беше активиран');
-			}, (erroResponse: HttpErrorResponse) => {
-				console.log(erroResponse.message);
-			}));
+	onActivationButtonClicked(account: AccountViewModel): void {
+		this.selectedAccount = account;
+
+		this.isActivateDialogOpened = true;
+	}
+
+	onEditButtonClicked(account: AccountViewModel): void {
+		this.selectedAccount = account;
+
+		this.isEditDialogOpened = true;
 	}
 
 	onDeleteButtonClicked(account: AccountViewModel) {
-		this.accountId = account.id;
-		this.accountName = account.name;
+		this.selectedAccount = account;
 
 		this.isDeleteDialogOpened = true;
 	}
 
 	onDeleteSubmitted(): void {
-		this.subscription.add(this.adminService.deleteAccount(this.accountId)
+		this.subscription.add(this.adminService.deleteAccount(this.selectedAccount.id)
 			.subscribe(() => { }
 				, (errorResponse: HttpErrorResponse) => {
 					console.log(errorResponse.message);
 				}));
+
 		this.isDeleteDialogOpened = false;
+	}
+
+	onActivationSubmitted(): void {
+		this.subscription.add(this.adminService.activateAccount(this.selectedAccount.id)
+			.subscribe(() => {
+				alert('Акаунта беше активиран');
+			}, (erroResponse: HttpErrorResponse) => {
+				console.log(erroResponse.message);
+			}));
+
+		this.isActivateDialogOpened = false;
+	}
+
+	onEditSubmitted(): void {
+
+
+		this.isEditDialogOpened = false;
 	}
 
 	onDialogClosed(): void {
 		this.isDeleteDialogOpened = false;
+		this.isEditDialogOpened = false;
+		this.isActivateDialogOpened = false;
 	}
 	ngOnDestroy(): void {
 		this.subscription.unsubscribe();

@@ -27,6 +27,14 @@ import { ReservationComponent } from './components/public-components/reservation
 import { OverviewComponent } from './components/customer-components/overview/overview.component';
 import { ReservationsComponent } from './components/admin-components/reservations/reservations.component';
 import { ReferencesComponent } from './components/admin-components/references/references.component';
+import { MessegeBoxComponent } from './components/admin-components/messege-box/messege-box.component';
+import { AccountsComponent } from './components/admin-components/accounts/accounts.component';
+import { AdminSettingsComponent } from './components/admin-components/admin-settings/admin-settings.component';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { AdminService } from './services/admin-services/admin.service';
+
+
 
 
 @NgModule({
@@ -42,7 +50,10 @@ import { ReferencesComponent } from './components/admin-components/references/re
 		ReservationComponent,
 		OverviewComponent,
 		ReservationsComponent,
-		ReferencesComponent
+		ReferencesComponent,
+		MessegeBoxComponent,
+		AccountsComponent,
+		AdminSettingsComponent
 	],
 	imports: [
 		BrowserModule,
@@ -55,11 +66,14 @@ import { ReferencesComponent } from './components/admin-components/references/re
 		CalendarModule,
 		NgbModule.forRoot(),
 		PDFExportModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		GridModule,
+		DialogsModule
 	],
 	providers: [
 		PublicService,
-		LocalstorageService
+		LocalstorageService,
+		AdminService
 	],
 	bootstrap: [AppComponent]
 })

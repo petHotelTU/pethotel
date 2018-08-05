@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { HotelProduct } from '../models/view-models/public-models/hotel-product';
 import { LoginModel } from '../models/binding-models/public-models/login-model';
 
-export const baseURL = 'http://192.168.10.221:8080/';
+export const baseURL = 'http://213.91.182.203:8080/';
 
 @Injectable()
 export class PublicService {

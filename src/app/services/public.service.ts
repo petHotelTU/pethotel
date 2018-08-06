@@ -1,4 +1,4 @@
-import { ContactModel } from './../models/binding-models/public-models/contact-model';
+import { ContactModel } from '../models/binding-models/public-models/contact-model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';

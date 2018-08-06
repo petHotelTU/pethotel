@@ -1,6 +1,6 @@
 import { LocalstorageService } from './services/localstorage.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '../../node_modules/@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RecaptchaModule } from 'ng-recaptcha';

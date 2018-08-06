@@ -3,8 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 
 import { AdminService } from '../../../services/admin-services/admin.service';
-import { HttpErrorResponse } from '../../../../../node_modules/@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AccountViewModel } from '../../../models/view-models/admin-models/account-view-model';
+import { AccountEditBindingModel } from '../../../models/binding-models/admin-models/account-edit-binding-model';
 
 @Component({
 	selector: 'app-accounts',
@@ -16,6 +17,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
 	isActivateDialogOpened: boolean;
 	isEditDialogOpened: boolean;
 
+	accountEditBindingModel: AccountEditBindingModel;
 	selectedAccount: AccountViewModel;
 	accounts: Observable<AccountViewModel[]>;
 
@@ -25,6 +27,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
 		this.isActivateDialogOpened = false;
 		this.isEditDialogOpened = false;
 
+		this.accountEditBindingModel = new AccountEditBindingModel();
 		this.subscription = new Subscription();
 	}
 

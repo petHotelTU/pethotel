@@ -11,11 +11,34 @@ import { ContactViewModel } from '../../../models/view-models/public-models/cont
 	styleUrls: ['./messege-box.component.scss']
 })
 export class MessegeBoxComponent implements OnInit {
-	messeges: Observable<ContactViewModel[]>;
-	constructor(private adminService: AdminService) { }
+	isDialogOpened: boolean;
+	receivedMessage: ContactViewModel;
+
+	messages: Observable<ContactViewModel[]>;
+
+	constructor(private adminService: AdminService) {
+		this.isDialogOpened = false;
+
+		this.receivedMessage = new ContactViewModel();
+	}
 
 	ngOnInit() {
-		this.messeges = this.adminService.getReceivedMesseges().pipe();
+		this.messages = this.adminService.getReceivedMesseges().pipe();
+	}
+
+	onMessegeClicked(messege: ContactViewModel): void {
+		this.receivedMessage = messege;
+
+		this.isDialogOpened = true;
+	}
+
+	onSendButtonClicked(): void {
+
+		this.isDialogOpened = false;
+	}
+
+	onDialogClosed(): void {
+		this.isDialogOpened = false;
 	}
 
 }

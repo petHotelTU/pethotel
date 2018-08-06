@@ -9,6 +9,7 @@ import { ContactViewModel } from '../../models/view-models/public-models/contact
 
 import { baseURL } from '../public.service';
 import { AccountViewModel } from '../../models/view-models/admin-models/account-view-model';
+import { AccountEditBindingModel } from '../../models/binding-models/admin-models/account-edit-binding-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {
@@ -18,7 +19,7 @@ export class AdminService extends BaseAuthorizedService {
 	}
 
 	getReceivedMesseges(): Observable<ContactViewModel[]> {
-		return this.httpClient.get<ContactViewModel[]>( baseURL + 'api/admin/getMesseges', {headers: this.httpAuthorized});
+		return this.httpClient.get<ContactViewModel[]>( baseURL + 'api/admin/getMessages', {headers: this.httpAuthorized});
 	}
 
 	getAccounts(): Observable<AccountViewModel[]> {
@@ -29,7 +30,12 @@ export class AdminService extends BaseAuthorizedService {
 		return this.httpClient.post<void>( baseURL + 'api/admin/accounts/' + accountId + '/activate', null , {headers: this.httpAuthorized});
 	}
 
+	updateAccount(model: AccountEditBindingModel, accountId: number): Observable<void> {
+		return this.httpClient.post<void>(baseURL + 'api/admin/accounts/' + accountId , model, {headers: this.httpAuthorized} );
+	}
+
 	deleteAccount(accountId: number): Observable<void> {
 		return this.httpClient.delete<void>(baseURL + 'api/admin/accounts/' + accountId + '/delete', {headers: this.httpAuthorized} );
 	}
+
 }

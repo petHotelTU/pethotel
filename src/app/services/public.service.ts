@@ -14,7 +14,7 @@ export class PublicService {
 	constructor(private httpClient: HttpClient) { }
 
 	getHotelServices(): Observable<HotelProductViewModel[]> {
-		return this.httpClient.get<HotelProductViewModel[]>(baseURL + 'api/getHotelServices');
+		return this.httpClient.get<HotelProductViewModel[]>(baseURL + 'api/hotel-services/getAll');
 	}
 
 	sendMessage(model: ContactBindingModel, captchaToken: string): Observable<void> {

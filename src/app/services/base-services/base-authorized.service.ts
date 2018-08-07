@@ -5,7 +5,7 @@ export class BaseAuthorizedService {
 
 	constructor() {
 		let token = localStorage.getItem('access_token');
-		this._httpAuthorized = new HttpHeaders().set('Authorization', 'bearer ' + token);
+		this._httpAuthorized = new HttpHeaders().set('Authorization', 'Bearer ' + token);
 	}
 
 	get httpAuthorized(): HttpHeaders {

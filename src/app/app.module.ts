@@ -58,6 +58,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
+		GridModule,
+		DialogsModule,
 		FormsModule,
 		HttpClientModule,
 		ReactiveFormsModule,
@@ -67,9 +70,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 		CalendarModule,
 		NgbModule.forRoot(),
 		PDFExportModule,
-		BrowserAnimationsModule,
-		GridModule,
-		DialogsModule,
 		FontAwesomeModule
 	],
 	providers: [

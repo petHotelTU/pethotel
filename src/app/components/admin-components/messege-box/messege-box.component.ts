@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import { parseDate } from '@progress/kendo-angular-intl';
 
 import { AdminService } from '../../../services/admin-services/admin.service';
 import { ContactViewModel } from '../../../models/shared-models/view-models/contact-view-model';
@@ -23,11 +26,16 @@ export class MessegeBoxComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.messages = this.adminService.getReceivedMesseges().pipe();
+		this.messages = this.adminService.getReceivedMesseges()
+		.pipe(tap( (data: ContactViewModel[]) => {
+			data.forEach((msg) => {
+				msg.dateReceived = parseDate(msg.dateReceived);
+			});
+		}));
 	}
 
-	onMessegeClicked(messege: ContactViewModel): void {
-		this.receivedMessage = messege;
+	onMessageClicked(message: ContactViewModel): void {
+		this.receivedMessage = message;
 
 		this.isDialogOpened = true;
 	}
@@ -39,6 +47,10 @@ export class MessegeBoxComponent implements OnInit {
 
 	onDialogClosed(): void {
 		this.isDialogOpened = false;
+	}
+
+	parseToLocaleDate(date: Date): string {
+		return date.toLocaleDateString('bg-BG');
 	}
 
 }

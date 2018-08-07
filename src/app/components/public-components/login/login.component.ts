@@ -1,9 +1,8 @@
 import { LocalstorageService } from '../../../services/localstorage.service';
-import { LoginModel } from '../../../models/binding-models/public-models/login-model';
+import { LoginBindingModel } from '../../../models/public-models/binding-models/login-binding-model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PublicService } from '../../../services/public.service';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -33,7 +32,7 @@ export class LoginComponent implements OnInit {
 
 	onSubmit(): void {
 		if (this.loginForm.valid) {
-			const loginModel: LoginModel = this.loginForm.value;
+			const loginModel: LoginBindingModel = this.loginForm.value;
 			this.publicService.login(loginModel).subscribe((token: string) => {
 				this.localStorageService.token = token;
 				this.localStorageService.login();

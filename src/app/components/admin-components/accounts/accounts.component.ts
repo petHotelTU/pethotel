@@ -4,8 +4,8 @@ import { Subscription, Observable } from 'rxjs';
 
 import { AdminService } from '../../../services/admin-services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AccountViewModel } from '../../../models/view-models/admin-models/account-view-model';
-import { AccountEditBindingModel } from '../../../models/binding-models/admin-models/account-edit-binding-model';
+import { AccountViewModel } from '../../../models/admin-models/view-models/account-view-model';
+import { AccountEditBindingModel } from '../../../models/admin-models/binding-models/account-edit-binding-model';
 
 @Component({
 	selector: 'app-accounts',

@@ -1,3 +1,36 @@
-<p>
-  admin-settings works!
-</p>
+<div class="container">
+  <div class="form-group mt-4">
+    <h3>Преглед на съобщения</h3>
+    <hr>
+  </div>
+  <div class="form-group">
+    <ngb-tabset #t="ngbTabset">
+      <ngb-tab id="tab-selectbyid1" title="Цени и услуги">
+        <ng-template ngbTabContent>
+          <div>
+            <kendo-grid [data]="services | async" [height]="auto">
+              <kendo-grid-column field="service" title="Услуга" width="250">
+                <ng-template kendoGridDetailTemplate let-service>
+                  <a (click)="onServiceTitleClicked(service)">{{service.name}}</a>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column field="price" title="Цена за ден" width="80">
+              </kendo-grid-column>
+            </kendo-grid>
+          </div>
+          <div class="float-right mt-2">
+            <button class="btn">Добави</button>
+          </div>
+          <div>
+            <small><fa-icon [icon]="faInfo"></fa-icon>  Натиснете върху съответната услуга, за да я коригирате!</small>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-selectbyid2">
+        <ng-template ngbTabTitle>Стаи</ng-template>
+        <ng-template ngbTabContent>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

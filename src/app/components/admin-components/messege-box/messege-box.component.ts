@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AdminService } from '../../../services/admin-services/admin.service';
-import { ContactViewModel } from '../../../models/view-models/public-models/contact-view-model';
+import { ContactViewModel } from '../../../models/shared-models/view-models/contact-view-model';
 
 @Component({
 	selector: 'app-messege-box',

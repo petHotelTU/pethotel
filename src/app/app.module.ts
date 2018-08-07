@@ -33,6 +33,7 @@ import { AdminSettingsComponent } from './components/admin-components/admin-sett
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { AdminService } from './services/admin-services/admin.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -68,7 +69,8 @@ import { AdminService } from './services/admin-services/admin.service';
 		PDFExportModule,
 		BrowserAnimationsModule,
 		GridModule,
-		DialogsModule
+		DialogsModule,
+		FontAwesomeModule
 	],
 	providers: [
 		PublicService,

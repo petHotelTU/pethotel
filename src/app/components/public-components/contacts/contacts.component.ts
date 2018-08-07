@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { PublicService } from '../../../services/public.service';
 import { Subscription } from 'rxjs';
-import { ContactModel } from '../../../models/binding-models/public-models/contact-model';
+import { ContactBindingModel } from '../../../models/shared-models/binding-models/contact-binding-model';
 
 @Component({
 	selector: 'app-contacts',
@@ -55,7 +55,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 	onSubmit(): void {
 		if (this.contactForm.valid) {
 			if (this.captchaToken !== '' && this.captchaToken !== undefined) {
-				const contactModel: ContactModel = this.contactForm.value;
+				const contactModel: ContactBindingModel = this.contactForm.value;
 				this.contactSubscription.add(this.publicService.sendMessage(contactModel, this.captchaToken).subscribe());
 			}
 		} else {

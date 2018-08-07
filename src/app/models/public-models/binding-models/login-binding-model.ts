@@ -1,4 +1,4 @@
-export class LoginModel {
+export class LoginBindingModel {
 	username: string;
 	password: string;
 }

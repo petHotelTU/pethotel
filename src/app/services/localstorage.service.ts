@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TokenModel } from '../models/token/token-model';
 import { Router } from '@angular/router';
+import { TokenModel } from '../models/shared-models/other/token/token-model';
 
 @Injectable()
 export class LocalstorageService {

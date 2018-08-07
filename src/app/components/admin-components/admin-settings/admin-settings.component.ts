@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
 	selector: 'app-admin-settings',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./admin-settings.component.scss']
 })
 export class AdminSettingsComponent implements OnInit {
-
+	faInfo = faInfoCircle;
 	constructor() { }
 
 	ngOnInit() {

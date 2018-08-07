@@ -1,6 +1,6 @@
 import { PublicService } from '../../../services/public.service';
 import { Component, OnInit } from '@angular/core';
-import { HotelProduct } from '../../../models/view-models/public-models/hotel-product';
+import { HotelProductViewModel } from '../../../models/public-models/view-models/hotel-product-view-model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-	hotelProducts: Observable<HotelProduct[]>;
+	hotelProducts: Observable<HotelProductViewModel[]>;
 	constructor(private publicService: PublicService) { }
 
 	ngOnInit() {

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { LocalstorageService } from './services/localstorage.service';
 
-import { TokenModel } from './models/token/token-model';
+import { TokenModel } from './models/shared-models/other/token/token-model';
+
 
 @Component({
 	selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
 		if (this.token !== undefined && this.token !== '' && this.token !== null) {
 			this.isPublic = false;
 			let tokenModel: TokenModel = this.localStorageService.parseToken();
-			if (tokenModel.authorities.indexOf('ADMIN') > 0) {
+			if (tokenModel.authorities = 'ADMIN') {
 				this.isAdmin = true;
 			}
 		}

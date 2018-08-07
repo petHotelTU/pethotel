@@ -1,4 +1,4 @@
-export class HotelProduct {
+export class HotelProductViewModel {
 	id: number;
 	name: string;
 	description: string;

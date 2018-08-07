@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 
 import { BaseAuthorizedService } from '../base-services/base-authorized.service';
 
-import { ContactViewModel } from '../../models/view-models/public-models/contact-view-model';
+import { ContactViewModel } from '../../models/shared-models/view-models/contact-view-model';
 
 import { baseURL } from '../public.service';
-import { AccountViewModel } from '../../models/view-models/admin-models/account-view-model';
-import { AccountEditBindingModel } from '../../models/binding-models/admin-models/account-edit-binding-model';
+import { AccountViewModel } from '../../models/admin-models/view-models/account-view-model';
+import { AccountEditBindingModel } from '../../models/admin-models/binding-models/account-edit-binding-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {

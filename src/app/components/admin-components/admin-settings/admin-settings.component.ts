@@ -7,7 +7,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { HotelProductViewModel } from '../../../models/public-models/view-models/hotel-product-view-model';
 import { AdminService } from '../../../services/admin-services/admin.service';
 import { PublicService } from '../../../services/public.service';
-import { HttpErrorResponse } from '../../../../../node_modules/@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { HotelProductBindingModel } from '../../../models/admin-models/binding-models/hotel-product-binding-model';
 
 @Component({

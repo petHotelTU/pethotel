@@ -11,6 +11,9 @@ import { baseURL } from '../public.service';
 import { AccountViewModel } from '../../models/admin-models/view-models/account-view-model';
 import { AccountEditBindingModel } from '../../models/admin-models/binding-models/account-edit-binding-model';
 import { HotelProductBindingModel } from '../../models/admin-models/binding-models/hotel-product-binding-model';
+import { RoomViewModel } from '../../models/admin-models/view-models/room-view-model';
+import { RoomExtendedViewModel } from '../../models/admin-models/view-models/room-extended-view-model';
+import { RoomBindingModel } from '../../models/admin-models/binding-models/room-binding-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {
@@ -49,4 +52,16 @@ export class AdminService extends BaseAuthorizedService {
 		return this.httpClient.post<void>(baseURL + 'api/hotel-services/add' , model, {headers: this.httpAuthorized} );
 	}
 
+	// Rooms modification methods
+	getRooms(): Observable<RoomViewModel[]> {
+		return this.httpClient.get<RoomViewModel[]>(baseURL + 'api/admin/rooms/getAll', { headers: this.httpAuthorized});
+	}
+
+	getRoomsDetailed(): Observable<RoomExtendedViewModel[]> {
+		return this.httpClient.get<RoomExtendedViewModel[]>(baseURL + 'api/admin/rooms/getAllDetailed', { headers: this.httpAuthorized});
+	}
+
+	addRoom(model: RoomBindingModel): Observable<RoomBindingModel> {
+		return this.httpClient.post<RoomBindingModel>(baseURL + 'api/admin/rooms/add', model, { headers: this.httpAuthorized});
+	}
 }

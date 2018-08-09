@@ -14,6 +14,7 @@ import { HotelProductBindingModel } from '../../models/admin-models/binding-mode
 import { RoomViewModel } from '../../models/admin-models/view-models/room-view-model';
 import { RoomExtendedViewModel } from '../../models/admin-models/view-models/room-extended-view-model';
 import { RoomBindingModel } from '../../models/admin-models/binding-models/room-binding-model';
+import { HotelProductViewModel } from '../../models/public-models/view-models/hotel-product-view-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {
@@ -52,6 +53,14 @@ export class AdminService extends BaseAuthorizedService {
 		return this.httpClient.post<void>(baseURL + 'api/hotel-services/add' , model, {headers: this.httpAuthorized} );
 	}
 
+	editHotelService(serviceId: number, model: HotelProductBindingModel): Observable<void> {
+		return this.httpClient.post<void>(baseURL + 'api/hotel-services/' + serviceId , model, {headers: this.httpAuthorized} );
+	}
+
+	getHotelService(serviceId: number): Observable<HotelProductViewModel> {
+		return this.httpClient.get<HotelProductViewModel>(baseURL + 'api/hotel-services/' + serviceId, {headers: this.httpAuthorized});
+	}
+
 	// Rooms modification methods
 	getRooms(): Observable<RoomViewModel[]> {
 		return this.httpClient.get<RoomViewModel[]>(baseURL + 'api/admin/rooms/getAll', { headers: this.httpAuthorized});
@@ -63,5 +72,13 @@ export class AdminService extends BaseAuthorizedService {
 
 	addRoom(model: RoomBindingModel): Observable<RoomBindingModel> {
 		return this.httpClient.post<RoomBindingModel>(baseURL + 'api/admin/rooms/add', model, { headers: this.httpAuthorized});
+	}
+
+	editRoom(roomId: number, model: RoomBindingModel): Observable<RoomBindingModel> {
+		return this.httpClient.post<RoomBindingModel>(baseURL + 'api/admin/rooms/' + roomId, model, { headers: this.httpAuthorized});
+	}
+
+	deleteRoom(roomId: number): Observable<void> {
+		return this.httpClient.delete<void>(baseURL + 'api/admin/rooms/' + roomId + '/delete', { headers: this.httpAuthorized});
 	}
 }

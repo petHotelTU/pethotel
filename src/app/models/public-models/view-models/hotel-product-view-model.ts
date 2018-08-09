@@ -1,6 +1,7 @@
-export class HotelProductViewModel {
+import { HotelProductBaseModel } from '../base-models/hotel-product-base-model';
+
+export class HotelProductViewModel extends HotelProductBaseModel {
 	id: number;
-	name: string;
 	description: string;
 	price: number;
 	type: number;

@@ -122,6 +122,16 @@
 							<div class="float-right mt-2">
 								<button class="btn" (click)="onAddRoomButtonClicked()">Добави</button>
               </div>
+
+              <kendo-dialog title="Изтриване на стая" *ngIf="isDeleteRoomDialogOpened" (close)="onRoomDialogClosed()" [minWidth]="250"
+              [width]="450">
+              <p style="margin: 30px; text-align: center;">Искате ли да изтриете {{selectedRoom.name}}?</p>
+              <div class="form-group">
+                <button class="btn offset-2 col-3" (click)="onDeleteRoomSubmitted()">Да</button>
+                <button class="btn offset-2 col-3" (click)="onRoomDialogClosed()">Не</button>
+              </div>
+            </kendo-dialog>
+
               <kendo-dialog title="Добавяне/Редакция на стая" *ngIf="isAddRoomDialogOpened" (close)="onRoomDialogClosed()" [minWidth]="250"
               [width]="450">
               <div class="container">
@@ -166,6 +176,7 @@
                 <button class="btn offset-2 col-3" (click)="onRoomDialogClosed()">Отказ</button>
               </div>
             </kendo-dialog>
+
             <div>
               <small>
                 <fa-icon [icon]="faInfo"></fa-icon> Натиснете върху името на стаята, за да я коригирате!</small>

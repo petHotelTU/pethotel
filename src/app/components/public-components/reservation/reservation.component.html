@@ -6,16 +6,47 @@
       <hr>
     </div>
   </div>
-  <div class="form-group row">
-    <div *ngIf="!isSecondResStep" class="col-12 col-sm-6">
-      <div class="container">
-        <label class="mr-sm-2" for="inlineFormCustomSelect">Preference</label>
-        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
-          <option selected>Choose...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+  <div class="form-group">
+    <div *ngIf="!isSecondResStep" class="row">
+      <div class="col-12 col-sm-2">
+        <span>Изберете период за престой</span>
+      </div>
+      <div class="col-12 col-sm-5">
+        <kendo-daterange>
+          <label>
+            <span class="label">Начална дата</span>
+            <kendo-dateinput kendoDateRangeStartInput [(value)]="range.start"></kendo-dateinput>
+          </label>
+          <label>
+            <span class="label">Крайна дата</span>
+            <kendo-dateinput kendoDateRangeEndInput [(value)]="range.end"></kendo-dateinput>
+          </label>
+        </kendo-daterange>
+      </div>
+      <div class="col-12 col-sm-2">
+        <label for="roomType" class="label">Стая</label>
+        <select style="width: 100%" name="" id="roomType">
+          <option></option>
+          <option value="1">ВИП</option>
+          <option value="2">Стандарт</option>
         </select>
+      </div>
+      <div class="col-12 col-sm-2 mt-3">
+        <button (click)="onFindButtonClicked()" class="btn">Търси</button>
+      </div>
+    </div>
+    <div *ngIf="!isSecondResStep" class="row">
+      <hr class="col-12">
+      <div class="col-12 col-sm-7">
+      </div>
+      <div class="col-12 col-sm-4">
+        <label for="" class="label">Екстри</label>
+        <kendo-grid [kendoGridBinding]="extras | async" [pageSize]="4" [pageable]="true" [selectable]="true" [kendoGridSelectBy]="'id'"
+          [selectedKeys]="extrasIds">
+          <kendo-grid-checkbox-column showSelectAll="true" [width]="60"></kendo-grid-checkbox-column>
+          <kendo-grid-column field="name" title="Екстра"></kendo-grid-column>
+          <kendo-grid-column field="price" title="Цена"></kendo-grid-column>
+        </kendo-grid>
       </div>
     </div>
   </div>
@@ -45,6 +76,14 @@
     </div>
   </div>
   <div *ngIf="!isSecondResStep" class="form-group">
+    <div class="col-12 col-sm-5">
+      <div class="row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Стойност:</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+          </div>
+      </div>
+    </div>
     <div class="col-12 col-sm-3">
       <button class="btn btn-primary" (click)="isSecondResStep=!isSecondResStep">Напред</button>
     </div>

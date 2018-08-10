@@ -15,6 +15,7 @@ import { RoomViewModel } from '../../models/admin-models/view-models/room-view-m
 import { RoomExtendedViewModel } from '../../models/admin-models/view-models/room-extended-view-model';
 import { RoomBindingModel } from '../../models/admin-models/binding-models/room-binding-model';
 import { HotelProductViewModel } from '../../models/public-models/view-models/hotel-product-view-model';
+import { HotelProductSimpleViewModel } from '../../models/public-models/view-models/hotel-product-simple-view-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {

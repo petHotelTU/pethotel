@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { HotelProductViewModel } from '../models/public-models/view-models/hotel-product-view-model';
 import { LoginBindingModel } from '../models/public-models/binding-models/login-binding-model';
+import { HotelProductSimpleViewModel } from '../models/public-models/view-models/hotel-product-simple-view-model';
 
 export const baseURL = 'http://213.91.182.203:8080/';
 
@@ -15,6 +16,14 @@ export class PublicService {
 
 	getHotelServices(): Observable<HotelProductViewModel[]> {
 		return this.httpClient.get<HotelProductViewModel[]>(baseURL + 'api/hotel-services/getAll');
+	}
+
+	getHotelServicesOnly(): Observable<HotelProductViewModel[]> {
+		return this.httpClient.get<HotelProductViewModel[]>(baseURL + 'api/hotel-services/services');
+	}
+
+  getHotelExtras(): Observable<HotelProductSimpleViewModel[]> {
+		return this.httpClient.get<HotelProductSimpleViewModel[]>(baseURL + 'api/hotel-services/extras');
 	}
 
 	sendMessage(model: ContactBindingModel, captchaToken: string): Observable<void> {

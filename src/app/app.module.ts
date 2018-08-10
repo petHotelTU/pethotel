@@ -34,6 +34,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { AdminService } from './services/admin-services/admin.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DateInputsModule, DateRangeModule } from '@progress/kendo-angular-dateinputs';
+
 
 
 
@@ -70,7 +72,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 		CalendarModule,
 		NgbModule.forRoot(),
 		PDFExportModule,
-		FontAwesomeModule
+		FontAwesomeModule,
+		DateInputsModule,
+		DateRangeModule
 	],
 	providers: [
 		PublicService,

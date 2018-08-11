@@ -1,3 +1,4 @@
+import { BaseAuthorizedService } from './base-services/base-authorized.service';
 import { ContactBindingModel } from '../models/shared-models/binding-models/contact-binding-model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -6,13 +7,22 @@ import { Observable } from 'rxjs';
 import { HotelProductViewModel } from '../models/public-models/view-models/hotel-product-view-model';
 import { LoginBindingModel } from '../models/public-models/binding-models/login-binding-model';
 import { HotelProductSimpleViewModel } from '../models/public-models/view-models/hotel-product-simple-view-model';
+import { ReservationFilterBindingModel } from '../models/public-models/binding-models/reservation-filter-binding-model';
+import { FilteredReservationViewModel } from '../models/public-models/view-models/filtered-reservation-view-model';
 
-export const baseURL = 'http://213.91.182.203:8080/';
+
+export const baseURL = 'http://192.168.10.221:8080/';
 
 @Injectable()
-export class PublicService {
+export class PublicService extends BaseAuthorizedService {
 
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {
+		super();
+	}
+
+	getFilteredReservations(model: ReservationFilterBindingModel): Observable<FilteredReservationViewModel[]> {
+		return this.httpClient.post<FilteredReservationViewModel[]>(baseURL + 'api/reservations/filter', model);
+	}
 
 	getHotelServices(): Observable<HotelProductViewModel[]> {
 		return this.httpClient.get<HotelProductViewModel[]>(baseURL + 'api/hotel-services/getAll');

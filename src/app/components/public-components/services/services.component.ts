@@ -13,7 +13,7 @@ export class ServicesComponent implements OnInit {
 	constructor(private publicService: PublicService) { }
 
 	ngOnInit() {
-		this.hotelProducts = this.publicService.getHotelServices().pipe();
+		this.hotelProducts = this.publicService.getHotelServicesOnly().pipe();
 	}
 
 }

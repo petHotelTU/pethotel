@@ -1,3 +1,5 @@
+import { ReservationFilterBindingModel } from './../../../models/public-models/binding-models/reservation-filter-binding-model';
+import { FilteredReservationViewModel } from './../../../models/public-models/view-models/filtered-reservation-view-model';
 import { Component, OnInit } from '@angular/core';
 import { PublicService } from '../../../services/public.service';
 import { Observable } from 'rxjs';
@@ -12,11 +14,17 @@ export class ReservationComponent implements OnInit {
 	value: Date;
 	isSecondResStep: boolean;
 	extrasIds: number[] = [];
+	roomsIds: number[] = [];
 
+	filter: ReservationFilterBindingModel;
+
+	filteredReservations: Observable<FilteredReservationViewModel[]>;
 	extras: Observable<HotelProductSimpleViewModel[]>;
 	public range = { start: null, end: null };
+
 	constructor(private publicService: PublicService) {
 		this.isSecondResStep = false;
+		this.filter = new ReservationFilterBindingModel();
 	}
 
 	ngOnInit() {
@@ -24,7 +32,11 @@ export class ReservationComponent implements OnInit {
 	}
 
 	onFindButtonClicked(): void {
-		alert(this.extrasIds);
+		console.log(this.range.start);
+		console.log(this.range.end);
+		this.filter.startDate = this.range.start;
+		this.filter.endDate = this.range.end;
+		this.filteredReservations = this.publicService.getFilteredReservations(this.filter).pipe();
 	}
 
 	resolved(captchaResponse: string) {

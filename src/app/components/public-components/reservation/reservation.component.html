@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-bottom: 80px !important;">
   <div class="row">
     <div class="form-group col-12">
       <h3 *ngIf="!isSecondResStep">Резервация - стъпка 1</h3>
@@ -78,9 +78,9 @@
   <div *ngIf="!isSecondResStep" class="form-group">
     <div class="col-12 col-sm-5">
       <div class="row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Стойност:</label>
+          <label for="reservationValue" class="col-sm-2 col-form-label">Стойност:</label>
           <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+            <input type="text" readonly class="form-control-plaintext" id="reservationValue" value="0 лв.">
           </div>
       </div>
     </div>

@@ -12,6 +12,8 @@ import { ReferencesComponent } from '../components/admin-components/references/r
 import { MessegeBoxComponent } from '../components/admin-components/messege-box/messege-box.component';
 import { AdminSettingsComponent } from '../components/admin-components/admin-settings/admin-settings.component';
 import { AccountsComponent } from '../components/admin-components/accounts/accounts.component';
+import { ExtrasComponent } from '../components/customer-components/extras/extras.component';
+import { CustomerSettingsComponent } from '../components/customer-components/customer-settings/customer-settings.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +28,9 @@ const routes: Routes = [
 	{ path: 'admin/settings', component: AdminSettingsComponent},
 	{ path: 'admin/messeges', component: MessegeBoxComponent},
 	{ path: 'admin/accounts', component: AccountsComponent},
-	{ path: 'customer/overview', component: OverviewComponent }
+	{ path: 'customer/overview', component: OverviewComponent },
+	{ path: 'customer/extras', component: ExtrasComponent },
+	{ path: 'customer/settings', component: CustomerSettingsComponent }
 ];
 
 @NgModule({

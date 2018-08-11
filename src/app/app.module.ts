@@ -35,6 +35,8 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { AdminService } from './services/admin-services/admin.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DateInputsModule, DateRangeModule } from '@progress/kendo-angular-dateinputs';
+import { ExtrasComponent } from './components/customer-components/extras/extras.component';
+import { CustomerSettingsComponent } from './components/customer-components/customer-settings/customer-settings.component';
 
 
 
@@ -56,7 +58,9 @@ import { DateInputsModule, DateRangeModule } from '@progress/kendo-angular-datei
 		ReferencesComponent,
 		MessegeBoxComponent,
 		AccountsComponent,
-		AdminSettingsComponent
+		AdminSettingsComponent,
+		ExtrasComponent,
+		CustomerSettingsComponent
 	],
 	imports: [
 		BrowserModule,

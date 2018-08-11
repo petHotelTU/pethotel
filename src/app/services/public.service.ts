@@ -22,7 +22,7 @@ export class PublicService {
 		return this.httpClient.get<HotelProductViewModel[]>(baseURL + 'api/hotel-services/services');
 	}
 
-  getHotelExtras(): Observable<HotelProductSimpleViewModel[]> {
+	getHotelExtras(): Observable<HotelProductSimpleViewModel[]> {
 		return this.httpClient.get<HotelProductSimpleViewModel[]>(baseURL + 'api/hotel-services/extras');
 	}
 

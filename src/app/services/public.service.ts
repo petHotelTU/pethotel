@@ -9,6 +9,7 @@ import { LoginBindingModel } from '../models/public-models/binding-models/login-
 import { HotelProductSimpleViewModel } from '../models/public-models/view-models/hotel-product-simple-view-model';
 import { ReservationFilterBindingModel } from '../models/public-models/binding-models/reservation-filter-binding-model';
 import { FilteredReservationViewModel } from '../models/public-models/view-models/filtered-reservation-view-model';
+import { ReservationBindingModel } from '../models/public-models/binding-models/reservation-binding-model';
 
 
 export const baseURL = 'http://192.168.10.221:8080/';
@@ -43,5 +44,10 @@ export class PublicService extends BaseAuthorizedService {
 
 	login(model: LoginBindingModel): Observable<string> {
 		return this.httpClient.post<string>(baseURL + 'api/login', model);
+	}
+
+	doReservation(model: ReservationBindingModel, captchaToken: string): Observable<void> {
+		const httpParams = new HttpParams().append('g-recaptcha-response', captchaToken);
+		return this.httpClient.post<void>(baseURL + 'api/reservations/create', model, { params: httpParams });
 	}
 }

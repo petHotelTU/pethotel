@@ -8,7 +8,7 @@
 			<ngb-tab id="tab-selectbyid1" title="Цени и услуги">
 				<ng-template ngbTabContent>
 					<div>
-						<kendo-grid [kendoGridBinding]="hotelServices | async" [pageSize]="4" [pageable]="true" [sortable]="true" [height]="auto">
+						<kendo-grid [kendoGridBinding]="hotelServices | async" [pageSize]="4" [pageable]="true" [sortable]="true" height="auto">
 							<kendo-grid-column field="name" title="Услуга" width="200">
 								<ng-template kendoGridCellTemplate let-service>
 									<span (click)="onAddServiceButtonClicked(service)" style="text-decoration: underline; cursor: pointer;">{{service.name}}</span>
@@ -102,7 +102,7 @@
 				<ng-template ngbTabTitle>Стаи</ng-template>
 				<ng-template ngbTabContent>
 						<div>
-								<kendo-grid [kendoGridBinding]="rooms | async" [pageSize]="4" [pageable]="true" [sortable]="true" [height]="auto">
+								<kendo-grid [kendoGridBinding]="rooms | async" [pageSize]="4" [pageable]="true" [sortable]="true" height="auto">
 									<kendo-grid-column field="name" title="Име" width="60">
 										<ng-template kendoGridCellTemplate let-room>
 											<span (click)="onAddRoomButtonClicked(room)">{{room.name}}</span>

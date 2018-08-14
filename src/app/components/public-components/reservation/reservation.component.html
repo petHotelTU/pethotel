@@ -39,12 +39,23 @@
       <hr class="col-12">
       <div class="col-12 col-sm-7">
           <label for="" class="label">Резултат</label>
-          <kendo-grid [kendoGridBinding]="filteredReservations | async" [pageSize]="4" [pageable]="true" [selectable]="true" [kendoGridSelectBy]="'roomId'"
-          [selectedKeys]="roomsIds">
-          <kendo-grid-checkbox-column showSelectAll="true" [width]="60"></kendo-grid-checkbox-column>
-          <kendo-grid-column field="roomName" title="Име на стаята"></kendo-grid-column>
-          <kendo-grid-column field="roomType" title="Тип стая"></kendo-grid-column>
-          <kendo-grid-column field="roomPrice" title="Цена"></kendo-grid-column>
+          <kendo-grid
+            [kendoGridBinding]="filteredReservations | async"
+            [pageSize]="4"
+            [pageable]="true"
+            [selectable]="selectableSettings"
+            [kendoGridSelectBy]="'roomId'"
+            [selectedKeys]="roomsIds">
+            <kendo-grid-checkbox-column [width]="60"></kendo-grid-checkbox-column>
+            <kendo-grid-column field="roomId" title="Име на стаята"></kendo-grid-column>
+            <kendo-grid-column field="roomName" title="Име на стаята"></kendo-grid-column>
+            <kendo-grid-column field="roomType" title="Тип стая">
+                <ng-template kendoGridCellTemplate let-room>
+                    <span *ngIf="room.roomType === 1">ВИП</span>
+                    <span *ngIf="room.roomType !== 1">Стандарт</span>
+                  </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="roomPrice" title="Цена"></kendo-grid-column>
         </kendo-grid>
       </div>
       <div class="col-12 col-sm-4">
@@ -62,13 +73,13 @@
     <div *ngIf="isSecondResStep" class="col-12 col-sm-6">
       <div class="container">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Вашите имена...">
+          <input type="text" class="form-control" placeholder="Вашите имена..." [(ngModel)]="reservationBindingModel.name" >
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Вашият имейл...">
+          <input type="text" class="form-control" placeholder="Вашият имейл..." [(ngModel)]="reservationBindingModel.email">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Телефон за контакт...">
+          <input type="text" class="form-control" placeholder="Телефон за контакт..." [(ngModel)]="reservationBindingModel.phoneNumber">
         </div>
         <div class="form-group">
           <div class="form-check form-check-inline">
@@ -84,22 +95,14 @@
     </div>
   </div>
   <div *ngIf="!isSecondResStep" class="form-group">
-    <div class="col-12 col-sm-5">
-      <div class="row">
-          <label for="reservationValue" class="col-sm-2 col-form-label">Стойност:</label>
-          <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="reservationValue" value="0 лв.">
-          </div>
-      </div>
-    </div>
     <div class="col-12 col-sm-3">
-      <button class="btn btn-primary" (click)="isSecondResStep=!isSecondResStep">Напред</button>
+      <button class="btn btn-primary" (click)="isSecondResStep=!isSecondResStep" [disabled]="roomsIds.length === 0">Напред</button>
     </div>
   </div>
   <div class="container">
     <div *ngIf="isSecondResStep" class="form-group row">
       <div class="col-12 col-sm-3">
-        <button class="btn btn-primary">Резервация</button>
+        <button (click)="onSubmit()" class="btn btn-primary">Резервация</button>
       </div>
       <div class="col-12 offset-sm-4 col-sm-3 offset-md-1">
         <button class="btn btn-primary" (click)="isSecondResStep=!isSecondResStep">Назад</button>

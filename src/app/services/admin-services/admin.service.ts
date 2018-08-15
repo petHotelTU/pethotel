@@ -21,8 +21,8 @@ import { RoomExtendedViewModel } from '../../models/admin-models/view-models/roo
 import { RoomBindingModel } from '../../models/admin-models/binding-models/room-binding-model';
 import { HotelProductViewModel } from '../../models/public-models/view-models/hotel-product-view-model';
 import { ReservationViewModel } from '../../models/admin-models/view-models/reservation-view-model';
-import { ExtendedReservationViewModel } from '../../models/admin-models/view-models/extended-reservation-view-model';
 import { EmployeeViewModel } from '../../models/admin-models/view-models/employee-view-model';
+import { PetViewModel } from '../../models/admin-models/view-models/pet-view-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {
@@ -95,8 +95,8 @@ export class AdminService extends BaseAuthorizedService {
 		return this.httpClient.get<ReservationViewModel[]>(baseURL + 'api/admin/reservations/getAll', { headers: this.httpAuthorized });
 	}
 
-	getReservationDetails(reservationId: number): Observable<ExtendedReservationViewModel> {
-		return this.httpClient.get<ExtendedReservationViewModel>(baseURL + 'api/admin/reservations/' + reservationId, { headers: this.httpAuthorized });
+	getReservationDetails(reservationId: number): Observable<PetViewModel> {
+		return this.httpClient.get<PetViewModel>(baseURL + 'api/admin/reservations/' + reservationId, { headers: this.httpAuthorized });
 	}
 
 	editReservation(reservationId: number, model: ExtendedReservationBindingModel): Observable<void> {

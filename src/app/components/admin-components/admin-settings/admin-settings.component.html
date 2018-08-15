@@ -1,189 +1,231 @@
 <div class="container">
-	<div class="form-group mt-4">
-		<h3>Настройки</h3>
-		<hr>
-	</div>
-	<div class="form-group">
-		<ngb-tabset #t="ngbTabset">
-			<ngb-tab id="tab-selectbyid1" title="Цени и услуги">
-				<ng-template ngbTabContent>
-					<div>
-						<kendo-grid [kendoGridBinding]="hotelServices | async" [pageSize]="4" [pageable]="true" [sortable]="true" height="auto">
-							<kendo-grid-column field="name" title="Услуга" width="200">
-								<ng-template kendoGridCellTemplate let-service>
-									<span (click)="onAddServiceButtonClicked(service)" style="text-decoration: underline; cursor: pointer;">{{service.name}}</span>
-								</ng-template>
-							</kendo-grid-column>
-							<kendo-grid-column field="type" title="Тип" width="80">
-								<ng-template kendoGridCellTemplate let-service>
-									<p *ngIf="service.type === 0">Услуга</p>
-									<p *ngIf="service.type === 1">Екстра</p>
-								</ng-template>
-							</kendo-grid-column>
-							<kendo-grid-column field="price" title="Цена за ден" width="80">
-							</kendo-grid-column>
-							<kendo-grid-column field="time" title="Период" width="80">
-								<ng-template kendoGridCellTemplate let-service>
-									<p *ngIf="service.time === 0">Временна</p>
-									<p *ngIf="service.time === 1">Постоянна</p>
-								</ng-template>
-							</kendo-grid-column>
-							<kendo-grid-column width="80">
-								<ng-template kendoGridCellTemplate let-service>
-									<span (click)="onDeleteServiceButtonClicked(service)" style="text-decoration: underline; cursor: pointer;">Изтрий</span>
-								</ng-template>
-							</kendo-grid-column>
-						</kendo-grid>
-					</div>
-					<div class="float-right mt-2">
-						<button class="btn" (click)="onAddServiceButtonClicked(null)">Добави</button>
+  <div class="form-group mt-4">
+    <h3>Настройки</h3>
+    <hr>
+  </div>
+  <div class="form-group">
+    <ngb-tabset #t="ngbTabset">
+      <ngb-tab id="tab-selectbyid1" title="Цени и услуги">
+        <ng-template ngbTabContent>
+          <div>
+            <kendo-grid [kendoGridBinding]="hotelServices | async" [pageSize]="4" [pageable]="true" [sortable]="true" height="auto">
+              <kendo-grid-column field="name" title="Услуга" width="200">
+                <ng-template kendoGridCellTemplate let-service>
+                  <span (click)="onAddServiceButtonClicked(service)" style="text-decoration: underline; cursor: pointer;">{{service.name}}</span>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column field="type" title="Тип" width="80">
+                <ng-template kendoGridCellTemplate let-service>
+                  <p *ngIf="service.type === 0">Услуга</p>
+                  <p *ngIf="service.type === 1">Екстра</p>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column field="price" title="Цена за ден" width="80">
+              </kendo-grid-column>
+              <kendo-grid-column field="time" title="Период" width="80">
+                <ng-template kendoGridCellTemplate let-service>
+                  <p *ngIf="service.time === 0">Временна</p>
+                  <p *ngIf="service.time === 1">Постоянна</p>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column width="80">
+                <ng-template kendoGridCellTemplate let-service>
+                  <span (click)="onDeleteServiceButtonClicked(service)" style="text-decoration: underline; cursor: pointer;">Изтрий</span>
+                </ng-template>
+              </kendo-grid-column>
+            </kendo-grid>
           </div>
-					<kendo-dialog title="Изтриване на услуга/продукт" *ngIf="isDeleteDialogOpened" (close)="onDialogClosed()" [minWidth]="250"
-						[width]="450">
-						<p style="margin: 30px; text-align: center;">Искате ли да изтриете {{selectedService.name}}?</p>
-						<div class="form-group">
-							<button class="btn offset-2 col-3" (click)="onDeleteSubmitted()">Да</button>
-							<button class="btn offset-2 col-3" (click)="onDialogClosed()">Не</button>
-						</div>
+          <div class="float-right mt-2">
+            <button class="btn" (click)="onAddServiceButtonClicked(null)">Добави</button>
+          </div>
+          <kendo-dialog title="Изтриване на услуга/продукт" *ngIf="isDeleteDialogOpened" (close)="onDialogClosed()" [minWidth]="250"
+            [width]="450">
+            <p style="margin: 30px; text-align: center;">Искате ли да изтриете {{selectedService.name}}?</p>
+            <div class="form-group">
+              <button class="btn offset-2 col-3" (click)="onDeleteSubmitted()">Да</button>
+              <button class="btn offset-2 col-3" (click)="onDialogClosed()">Не</button>
+            </div>
           </kendo-dialog>
 
-					<kendo-dialog title="Добавяне на услуга/продукт" *ngIf="isAddProductDialogOpened" (close)="onDialogClosed()" [minWidth]="250"
-						[width]="450">
-						<div class="container">
-							<div class="form-group">
+          <kendo-dialog title="Добавяне на услуга/продукт" *ngIf="isAddProductDialogOpened" (close)="onDialogClosed()" [minWidth]="250"
+            [width]="450">
+            <div class="container">
+              <div class="form-group">
                 <h6 *ngIf="!isEditProduct">Добавяне на услуга</h6>
                 <h6 *ngIf="isEditProduct">Редактиране на услуга</h6>
-								<hr>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control mb-1" placeholder="Въведете име на услугата" [(ngModel)]="newHotelService.name">
-								<input type="text" class="form-control mb-1" placeholder="Въведете кратко описание" [(ngModel)]="newHotelService.description">
-								<input type="number" class="form-control mb-1" placeholder="Въведете цена за ден" [(ngModel)]="newHotelService.price">
-							</div>
-							<div class="form-group">
-								<label style="display: block;">Вид</label>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="newHotelService.type"
-										value="0">
-									<label class="form-check-label" for="inlineRadio1">услуга</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="newHotelService.type"
-										value="1">
-									<label class="form-check-label" for="inlineRadio2">екстра</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<label style="display: block;">Срок</label>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio4" [(ngModel)]="newHotelService.time"
-										value="0">
-									<label class="form-check-label" for="inlineRadio4">временна</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio5" [(ngModel)]="newHotelService.time"
-										value="1">
-									<label class="form-check-label" for="inlineRadio5">постоянна</label>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<button class="btn offset-2 col-3" (click)="onAddDialogSubmitted()">Запази</button>
-							<button class="btn offset-2 col-3" (click)="onDialogClosed()">Отказ</button>
-						</div>
-          </kendo-dialog>
-					<div>
-						<small>
-							<fa-icon [icon]="faInfo"></fa-icon> Натиснете върху съответната услуга, за да я коригирате!</small>
-					</div>
-				</ng-template>
-			</ngb-tab>
-			<ngb-tab id="tab-selectbyid2">
-				<ng-template ngbTabTitle>Стаи</ng-template>
-				<ng-template ngbTabContent>
-						<div>
-								<kendo-grid [kendoGridBinding]="rooms | async" [pageSize]="4" [pageable]="true" [sortable]="true" height="auto">
-									<kendo-grid-column field="name" title="Име" width="60">
-										<ng-template kendoGridCellTemplate let-room>
-											<span (click)="onAddRoomButtonClicked(room)">{{room.name}}</span>
-										</ng-template>
-									</kendo-grid-column>
-									<kendo-grid-column field="extras" title="Екстри" width="180">
-									</kendo-grid-column>
-									<kendo-grid-column field="price" title="Цена за ден" width="80">
-									</kendo-grid-column>
-									<kendo-grid-column width="80">
-										<ng-template kendoGridCellTemplate let-room>
-											<span (click)="onDeleteRoomButtonClicked(room)" style="text-decoration: underline; cursor: pointer;">Изтрий</span>
-										</ng-template>
-									</kendo-grid-column>
-								</kendo-grid>
-							</div>
-							<div class="float-right mt-2">
-								<button class="btn" (click)="onAddRoomButtonClicked()">Добави</button>
+                <hr>
               </div>
+              <div class="form-group">
+                <input type="text" class="form-control mb-1" placeholder="Въведете име на услугата" [(ngModel)]="newHotelService.name">
+                <input type="text" class="form-control mb-1" placeholder="Въведете кратко описание" [(ngModel)]="newHotelService.description">
+                <input type="number" class="form-control mb-1" placeholder="Въведете цена за ден" [(ngModel)]="newHotelService.price">
+              </div>
+              <div class="form-group">
+                <label style="display: block;">Вид</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="newHotelService.type"
+                    value="0">
+                  <label class="form-check-label" for="inlineRadio1">услуга</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="newHotelService.type"
+                    value="1">
+                  <label class="form-check-label" for="inlineRadio2">екстра</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label style="display: block;">Срок</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio4" [(ngModel)]="newHotelService.time"
+                    value="0">
+                  <label class="form-check-label" for="inlineRadio4">временна</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio5" [(ngModel)]="newHotelService.time"
+                    value="1">
+                  <label class="form-check-label" for="inlineRadio5">постоянна</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn offset-2 col-3" (click)="onAddDialogSubmitted()">Запази</button>
+              <button class="btn offset-2 col-3" (click)="onDialogClosed()">Отказ</button>
+            </div>
+          </kendo-dialog>
+          <div>
+            <small>
+              <fa-icon [icon]="faInfo"></fa-icon> Натиснете върху съответната услуга, за да я коригирате!</small>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-selectbyid2">
+        <ng-template ngbTabTitle>Стаи</ng-template>
+        <ng-template ngbTabContent>
+          <div>
+            <kendo-grid [kendoGridBinding]="rooms | async" [pageSize]="4" [pageable]="true" [sortable]="true" height="auto">
+              <kendo-grid-column field="name" title="Име" width="60">
+                <ng-template kendoGridCellTemplate let-room>
+                  <span (click)="onAddRoomButtonClicked(room)">{{room.name}}</span>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column field="extras" title="Екстри" width="180">
+              </kendo-grid-column>
+              <kendo-grid-column field="price" title="Цена за ден" width="80">
+              </kendo-grid-column>
+              <kendo-grid-column width="80">
+                <ng-template kendoGridCellTemplate let-room>
+                  <span (click)="onDeleteRoomButtonClicked(room)" style="text-decoration: underline; cursor: pointer;">Изтрий</span>
+                </ng-template>
+              </kendo-grid-column>
+            </kendo-grid>
+          </div>
+          <div class="float-right mt-2">
+            <button class="btn" (click)="onAddRoomButtonClicked()">Добави</button>
+          </div>
 
-              <kendo-dialog title="Изтриване на стая" *ngIf="isDeleteRoomDialogOpened" (close)="onRoomDialogClosed()" [minWidth]="250"
+          <kendo-dialog title="Изтриване на стая" *ngIf="isDeleteRoomDialogOpened" (close)="onRoomDialogClosed()" [minWidth]="250"
+            [width]="450">
+            <p style="margin: 30px; text-align: center;">Искате ли да изтриете {{selectedRoom.name}}?</p>
+            <div class="form-group">
+              <button class="btn offset-2 col-3" (click)="onDeleteRoomSubmitted()">Да</button>
+              <button class="btn offset-2 col-3" (click)="onRoomDialogClosed()">Не</button>
+            </div>
+          </kendo-dialog>
+
+          <kendo-dialog title="Добавяне/Редакция на стая" *ngIf="isAddRoomDialogOpened" (close)="onRoomDialogClosed()" [minWidth]="250"
+            [width]="450">
+            <div class="container">
+              <div class="form-group">
+                <h6>Добавяне на услуга</h6>
+                <hr>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control mb-1" placeholder="Въведете име на услугата" [(ngModel)]="newHotelService.name">
+                <input type="text" class="form-control mb-1" placeholder="Въведете кратко описание" [(ngModel)]="newHotelService.description">
+                <input type="number" class="form-control mb-1" placeholder="Въведете цена за ден" [(ngModel)]="newHotelService.price">
+              </div>
+              <div class="form-group">
+                <label style="display: block;">Вид</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="newHotelService.type"
+                    value="0">
+                  <label class="form-check-label" for="inlineRadio1">услуга</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="newHotelService.type"
+                    value="1">
+                  <label class="form-check-label" for="inlineRadio2">екстра</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label style="display: block;">Срок</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio4" [(ngModel)]="newHotelService.time"
+                    value="0">
+                  <label class="form-check-label" for="inlineRadio4">временна</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio5" [(ngModel)]="newHotelService.time"
+                    value="1">
+                  <label class="form-check-label" for="inlineRadio5">постоянна</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn offset-2 col-3" (click)="onAddRoomDialogSubmitted()">Запази</button>
+              <button class="btn offset-2 col-3" (click)="onRoomDialogClosed()">Отказ</button>
+            </div>
+          </kendo-dialog>
+          <div>
+            <small>
+              <fa-icon [icon]="faInfo"></fa-icon> Натиснете върху името на стаята, за да я коригирате!</small>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>Отговорни лица</ng-template>
+        <ng-template ngbTabContent>
+          <div>
+            <kendo-grid [kendoGridBinding]="employees | async" [pageSize]="4" [pageable]="true" [sortable]="true" height="auto">
+              <kendo-grid-column field="name" title="Име" width="110">
+                  <ng-template kendoGridCellTemplate let-employee>
+                      <span *ngIf="employee.id !== 1">{{employee.name}}</span>
+                  </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column width="80">
+                <ng-template kendoGridCellTemplate let-employee>
+                  <span (click)="onDeleteEmployeeButtonClicked(employee)" style="text-decoration: underline; cursor: pointer;">Изтрий</span>
+                </ng-template>
+              </kendo-grid-column>
+            </kendo-grid>
+
+            <div class="float-right mt-2">
+              <button class="btn" (click)="onAddEmployeeButtonClicked()">Добави</button>
+            </div>
+
+            <kendo-dialog title="Изтриване на служител" *ngIf="isDeleteEmployeeDialogOpened" (close)="onEmployeeDialogClosed()" [minWidth]="250"
               [width]="450">
               <p style="margin: 30px; text-align: center;">Искате ли да изтриете {{selectedRoom.name}}?</p>
               <div class="form-group">
-                <button class="btn offset-2 col-3" (click)="onDeleteRoomSubmitted()">Да</button>
-                <button class="btn offset-2 col-3" (click)="onRoomDialogClosed()">Не</button>
+                <button class="btn offset-2 col-3" (click)="onDeleteEmployeeSubmitted()">Да</button>
+                <button class="btn offset-2 col-3" (click)="onEmployeeDialogClosed()">Не</button>
               </div>
             </kendo-dialog>
 
-              <kendo-dialog title="Добавяне/Редакция на стая" *ngIf="isAddRoomDialogOpened" (close)="onRoomDialogClosed()" [minWidth]="250"
+            <kendo-dialog title="Добавяне на служител" *ngIf="isAddEmployeeDialogOpened" (close)="onEmployeeDialogClosed()" [minWidth]="250"
               [width]="450">
-              <div class="container">
-                <div class="form-group">
-                  <h6>Добавяне на услуга</h6>
-                  <hr>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control mb-1" placeholder="Въведете име на услугата" [(ngModel)]="newHotelService.name">
-                  <input type="text" class="form-control mb-1" placeholder="Въведете кратко описание" [(ngModel)]="newHotelService.description">
-                  <input type="number" class="form-control mb-1" placeholder="Въведете цена за ден" [(ngModel)]="newHotelService.price">
-                </div>
-                <div class="form-group">
-                  <label style="display: block;">Вид</label>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="newHotelService.type"
-                      value="0">
-                    <label class="form-check-label" for="inlineRadio1">услуга</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="newHotelService.type"
-                      value="1">
-                    <label class="form-check-label" for="inlineRadio2">екстра</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label style="display: block;">Срок</label>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio4" [(ngModel)]="newHotelService.time"
-                      value="0">
-                    <label class="form-check-label" for="inlineRadio4">временна</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio5" [(ngModel)]="newHotelService.time"
-                      value="1">
-                    <label class="form-check-label" for="inlineRadio5">постоянна</label>
-                  </div>
-                </div>
+              <div class = "form-group">
+                <input type="text" class="form-control mb-1" placeholder="Въведете име на служителя" [(ngModel)]="newEmployee.name">
               </div>
               <div class="form-group">
-                <button class="btn offset-2 col-3" (click)="onAddRoomDialogSubmitted()">Запази</button>
-                <button class="btn offset-2 col-3" (click)="onRoomDialogClosed()">Отказ</button>
+                <button class="btn offset-2 col-3" (click)="onAddEmployeeSubmitted()">Запази</button>
+                <button class="btn offset-2 col-3" (click)="onEmployeeDialogClosed()">Отказ</button>
               </div>
             </kendo-dialog>
 
-            <div>
-              <small>
-                <fa-icon [icon]="faInfo"></fa-icon> Натиснете върху името на стаята, за да я коригирате!</small>
-            </div>
-
-				</ng-template>
-			</ngb-tab>
-		</ngb-tabset>
-	</div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
 </div>

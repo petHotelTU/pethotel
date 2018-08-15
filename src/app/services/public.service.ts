@@ -12,7 +12,8 @@ import { FilteredReservationViewModel } from '../models/public-models/view-model
 import { ReservationBindingModel } from '../models/public-models/binding-models/reservation-binding-model';
 
 
-export const baseURL = 'http://192.168.10.221:8080/';
+// export const baseURL = 'http://192.168.10.221:8080/';
+export const baseURL = 'http://213.91.182.203:8080/';
 
 @Injectable()
 export class PublicService extends BaseAuthorizedService {

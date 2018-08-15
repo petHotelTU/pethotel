@@ -11,6 +11,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HotelProductBindingModel } from '../../../models/admin-models/binding-models/hotel-product-binding-model';
 import { RoomBindingModel } from '../../../models/admin-models/binding-models/room-binding-model';
 import { RoomExtendedViewModel } from '../../../models/admin-models/view-models/room-extended-view-model';
+import { EmployeeBindingModel } from '../../../models/admin-models/binding-models/employee-binding-model';
+import { EmployeeViewModel } from '../../../models/admin-models/view-models/employee-view-model';
 
 @Component({
 	selector: 'app-admin-settings',
@@ -38,8 +40,17 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 	selectedRoom: RoomExtendedViewModel;
 	rooms: Observable<RoomExtendedViewModel[]>;
 
+	// Employees variables
+	isAddEmployeeDialogOpened: boolean;
+	isDeleteEmployeeDialogOpened: boolean;
+
+	newEmployee: EmployeeBindingModel;
+	selectedEmployee: EmployeeViewModel;
+	employees: Observable<EmployeeViewModel[]>;
+
 	private subscription: Subscription;
 	constructor(private adminService: AdminService, private publicService: PublicService) {
+		// Hotel services initialize
 		this.isDeleteDialogOpened = false;
 		this.isAddProductDialogOpened = false;
 		this.isEditProduct = false;
@@ -47,12 +58,20 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 		this.newHotelService = new HotelProductBindingModel();
 		this.selectedService = new HotelProductViewModel();
 
+		// Room initialize
 		this.isAddRoomDialogOpened = false;
 		this.isDeleteRoomDialogOpened = false;
 		this.isEditRoom = false;
 
 		this.newRoom = new RoomBindingModel();
 		this.selectedRoom = new RoomExtendedViewModel();
+
+		// Employee initialize
+		this.isAddEmployeeDialogOpened = false;
+		this.isDeleteEmployeeDialogOpened = false;
+
+		this.newEmployee = new EmployeeBindingModel();
+		this.selectedEmployee = new EmployeeViewModel();
 
 		this.subscription = new Subscription();
 	}
@@ -61,6 +80,8 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 		this.getAllHotelServices();
 
 		this.getAllRooms();
+
+		this.getAllEmployees();
 	}
 
 	// Service Methods
@@ -167,6 +188,8 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 			}, (errorResponse: HttpErrorResponse) => {
 				if (errorResponse.status > 500) {
 					alert('Възникна проблем със сървъра.Моля свържете се с администратор!');
+				} else {
+					alert(errorResponse.message);
 				}
 			}));
 		}
@@ -192,6 +215,49 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 		this.isDeleteRoomDialogOpened = false;
 	}
 
+	// Employees Methods
+	onAddEmployeeButtonClicked(): void {
+		this.isAddEmployeeDialogOpened = true;
+	}
+
+	onAddEmployeeSubmitted(): void {
+		this.subscription.add(this.adminService.addEmployee(this.newEmployee).subscribe(() => {
+			this.getAllEmployees();
+			alert('Записът беше успешно добавен!');
+		}, (errorResponse: HttpErrorResponse) => {
+			if (errorResponse.status > 500) {
+				alert('Възникна проблем със сървъра.Моля свържете се с администратор!');
+			}
+		}));
+
+		this.newEmployee = new EmployeeBindingModel();
+		this.isAddEmployeeDialogOpened = false;
+	}
+
+	onDeleteEmployeeButtonClicked(employee: EmployeeViewModel): void {
+		this.selectedEmployee = employee;
+		this.isDeleteEmployeeDialogOpened = true;
+	}
+
+	onEmployeeDialogClosed(): void {
+		this.isDeleteEmployeeDialogOpened = false;
+		this.isAddEmployeeDialogOpened = false;
+
+		this.newEmployee = new EmployeeBindingModel();
+	}
+
+	onDeleteEmployeeSubmitted(): void {
+		this.subscription.add(this.adminService.deleteEmployee(this.selectedEmployee.id).subscribe(() => {
+			this.getAllEmployees();
+			alert('Операцията беше успешна');
+		}, (errorResponse: HttpErrorResponse) => {
+			if (errorResponse.status > 500) {
+				alert('Възникна проблем със сървъра.Моля свържете се с администратор!');
+			}
+		}));
+		this.isDeleteEmployeeDialogOpened = false;
+	}
+
 	ngOnDestroy(): void {
 		this.subscription.unsubscribe();
 	}
@@ -202,6 +268,10 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 
 	private getAllRooms(): void {
 		this.rooms = this.adminService.getRoomsDetailed().pipe();
+	}
+
+	private getAllEmployees(): void {
+		this.employees = this.adminService.getEmployees().pipe();
 	}
 
 }

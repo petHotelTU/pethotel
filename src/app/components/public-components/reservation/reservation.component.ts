@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ReservationFilterBindingModel } from './../../../models/public-models/binding-models/reservation-filter-binding-model';
-import { FilteredReservationViewModel } from './../../../models/public-models/view-models/filtered-reservation-view-model';
+import { ReservationFilterBindingModel } from '../../../models/public-models/binding-models/reservation-filter-binding-model';
+import { FilteredReservationViewModel } from '../../../models/public-models/view-models/filtered-reservation-view-model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { PublicService } from '../../../services/public.service';
 import { Observable, Subscription } from 'rxjs';
 import { HotelProductSimpleViewModel } from '../../../models/public-models/view-models/hotel-product-simple-view-model';
-import { ReservationBindingModel } from './../../../models/public-models/binding-models/reservation-binding-model';
-import { Router } from '../../../../../node_modules/@angular/router';
+import { ReservationBindingModel } from '../../../models/public-models/binding-models/reservation-binding-model';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-reservation',
@@ -50,8 +50,14 @@ export class ReservationComponent implements OnInit, OnDestroy {
 		this.reservationBindingModel.extras = this.extrasIds;
 
 		this.subscription = this.publicService.doReservation(this.reservationBindingModel, this.captchaToken).subscribe(() => {
-			this.router.navigate(['']);
-		}, (errorResponse: HttpErrorResponse) => { });
+				this.router.navigate(['']);
+		}, (errorResponse: HttpErrorResponse) => {
+			if (errorResponse.status > 500) {
+				alert('Възникна проблем със сървъра.Моля свържете се с администратор!');
+			} else {
+				alert(errorResponse.message);
+			}
+		});
 	}
 
 	public setSelectableSettings(): void {

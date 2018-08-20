@@ -67,13 +67,11 @@ export class AccountsComponent implements OnInit, OnDestroy {
 	}
 
 	onActivationSubmitted(): void {
-		let activationModel = new AccountActivationBindingModel();
-		activationModel.email = this.selectedAccount.email;
-		activationModel.userName = this.selectedAccount.userName;
-		activationModel.password = this.selectedAccount.password;
 
-		this.subscription.add(this.adminService.activateAccount(this.selectedAccount.id, activationModel)
+		this.subscription.add(this.adminService.activateAccount(this.selectedAccount.id, this.selectedAccount)
 			.subscribe(() => {
+				this.selectedAccount.isActivated = true;
+				this.selectedAccount.isEnabled = true;
 				alert('Акаунта беше активиран');
 			}, (erroResponse: HttpErrorResponse) => {
 				console.log(erroResponse.message);

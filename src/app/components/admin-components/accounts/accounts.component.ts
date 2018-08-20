@@ -6,6 +6,7 @@ import { AdminService } from '../../../services/admin-services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AccountViewModel } from '../../../models/admin-models/view-models/account-view-model';
 import { AccountEditBindingModel } from '../../../models/admin-models/binding-models/account-edit-binding-model';
+import { AccountActivationBindingModel } from '../../../models/admin-models/binding-models/account-activation-binding-model';
 
 @Component({
 	selector: 'app-accounts',
@@ -28,6 +29,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
 		this.isEditDialogOpened = false;
 
 		this.accountEditBindingModel = new AccountEditBindingModel();
+		this.selectedAccount = new AccountViewModel();
 		this.subscription = new Subscription();
 	}
 
@@ -37,6 +39,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
 
 	onActivationButtonClicked(account: AccountViewModel): void {
 		this.selectedAccount = account;
+		console.log(this.selectedAccount);
 
 		this.isActivateDialogOpened = true;
 	}
@@ -64,7 +67,12 @@ export class AccountsComponent implements OnInit, OnDestroy {
 	}
 
 	onActivationSubmitted(): void {
-		this.subscription.add(this.adminService.activateAccount(this.selectedAccount.id)
+		let activationModel = new AccountActivationBindingModel();
+		activationModel.email = this.selectedAccount.email;
+		activationModel.userName = this.selectedAccount.userName;
+		activationModel.password = this.selectedAccount.password;
+
+		this.subscription.add(this.adminService.activateAccount(this.selectedAccount.id, activationModel)
 			.subscribe(() => {
 				alert('Акаунта беше активиран');
 			}, (erroResponse: HttpErrorResponse) => {
@@ -85,8 +93,24 @@ export class AccountsComponent implements OnInit, OnDestroy {
 		this.isEditDialogOpened = false;
 		this.isActivateDialogOpened = false;
 	}
+
 	ngOnDestroy(): void {
 		this.subscription.unsubscribe();
+	}
+
+	generatePassword(): string {
+		let password = '';
+		let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+		for (let i = 0; i < 8; i++) {
+			password += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+
+		return password;
+	}
+
+	onGenerateButtonClicked(): void {
+		this.selectedAccount.password = this.generatePassword();
 	}
 
 }

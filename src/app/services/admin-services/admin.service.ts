@@ -23,6 +23,8 @@ import { HotelProductViewModel } from '../../models/public-models/view-models/ho
 import { ReservationViewModel } from '../../models/admin-models/view-models/reservation-view-model';
 import { EmployeeViewModel } from '../../models/admin-models/view-models/employee-view-model';
 import { PetViewModel } from '../../models/admin-models/view-models/pet-view-model';
+import { ContactBindingModel } from '../../models/admin-models/binding-models/contact-binding-model';
+import { AccountActivationBindingModel } from '../../models/admin-models/binding-models/account-activation-binding-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {
@@ -32,7 +34,11 @@ export class AdminService extends BaseAuthorizedService {
 	}
 	// Message modification methods
 	getReceivedMesseges(): Observable<ContactViewModel[]> {
-		return this.httpClient.get<ContactViewModel[]>(baseURL + 'api/admin/getMessages', { headers: this.httpAuthorized });
+		return this.httpClient.get<ContactViewModel[]>(baseURL + 'api/admin/messages/getMessages', { headers: this.httpAuthorized });
+	}
+
+	sendAnswerMessage(model: ContactBindingModel): Observable<void> {
+		return this.httpClient.post<void>(baseURL + 'api/admin/messages/answer', model , {headers: this.httpAuthorized});
 	}
 
 	// Accounts modification methods
@@ -40,8 +46,8 @@ export class AdminService extends BaseAuthorizedService {
 		return this.httpClient.get<AccountViewModel[]>(baseURL + 'api/admin/accounts/getAll', { headers: this.httpAuthorized });
 	}
 
-	activateAccount(accountId: number): Observable<void> {
-		return this.httpClient.post<void>(baseURL + 'api/admin/accounts/' + accountId + '/activate', null, { headers: this.httpAuthorized });
+	activateAccount(accountId: number, model: AccountActivationBindingModel): Observable<void> {
+		return this.httpClient.post<void>(baseURL + 'api/admin/accounts/' + accountId + '/activate', model, { headers: this.httpAuthorized });
 	}
 
 	updateAccount(model: AccountEditBindingModel, accountId: number): Observable<void> {

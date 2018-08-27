@@ -19,9 +19,7 @@ export class AppComponent implements OnInit {
 	constructor(private localStorageService: LocalstorageService) {
 		this.isPublic = true;
 		this.isAdmin = false;
-	}
 
-	ngOnInit(): void {
 		this.token = this.localStorageService.token;
 		if (this.token !== undefined && this.token !== '' && this.token !== null) {
 			this.isPublic = false;
@@ -29,6 +27,12 @@ export class AppComponent implements OnInit {
 			if (tokenModel.authorities = 'ADMIN') {
 				this.isAdmin = true;
 			}
+			else if (tokenModel.authorities = 'USER') {
+				this.isAdmin = false;
+			}
 		}
+	}
+
+	ngOnInit(): void {
 	}
 }

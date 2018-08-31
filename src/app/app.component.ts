@@ -24,10 +24,10 @@ export class AppComponent implements OnInit {
 		if (this.token !== undefined && this.token !== '' && this.token !== null) {
 			this.isPublic = false;
 			let tokenModel: TokenModel = this.localStorageService.parseToken();
-			if (tokenModel.authorities = 'ADMIN') {
+			if (tokenModel.authorities === 'ADMIN') {
 				this.isAdmin = true;
 			}
-			else if (tokenModel.authorities = 'USER') {
+			else if (tokenModel.authorities === 'USER') {
 				this.isAdmin = false;
 			}
 		}

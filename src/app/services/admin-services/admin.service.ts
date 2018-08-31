@@ -25,6 +25,8 @@ import { EmployeeViewModel } from '../../models/admin-models/view-models/employe
 import { PetViewModel } from '../../models/admin-models/view-models/pet-view-model';
 import { ContactBindingModel } from '../../models/admin-models/binding-models/contact-binding-model';
 import { AccountActivationBindingModel } from '../../models/admin-models/binding-models/account-activation-binding-model';
+import { ReferenceBindingModel } from '../../models/admin-models/binding-models/reference-binding-model';
+import { ReferenceViewModel } from '../../models/admin-models/view-models/reference-view-model';
 
 @Injectable()
 export class AdminService extends BaseAuthorizedService {
@@ -124,5 +126,10 @@ export class AdminService extends BaseAuthorizedService {
 
 	deleteEmployee(employeeId: number): Observable<void> {
 		return this.httpClient.delete<void>(baseURL + 'api/admin/employees/' + employeeId + '/delete', { headers: this.httpAuthorized });
+	}
+
+	// Reference methods
+	getReferenceResult(model: ReferenceBindingModel): Observable<ReferenceViewModel[]> {
+		return this.httpClient.post<ReferenceViewModel[]>(baseURL + 'api/admin/getReference', model , { headers: this.httpAuthorized });
 	}
 }

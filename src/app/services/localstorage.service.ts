@@ -30,6 +30,18 @@ export class LocalstorageService {
 		return token;
 	}
 
+	getUserName(): string {
+		const base64Url = this._token.split('.')[1];
+		const base64 = base64Url.replace('-', '+').replace('_', '/');
+		const tokenModel = JSON.parse(window.atob(base64));
+		let token = new TokenModel();
+		token.authorities = tokenModel.authorities;
+		token.fullName = tokenModel.fullName;
+		token.email = tokenModel.email;
+		token.user_name = tokenModel.user_name;
+		return token.user_name;
+	}
+
 	login(): void {
 		localStorage.setItem('access_token', this._token);
 	}

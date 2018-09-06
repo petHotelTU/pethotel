@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { BaseAuthorizedService } from '../base-services/base-authorized.service';
 import { baseURL } from '../public.service';
+import { Observable } from 'rxjs';
+import { OverviewViewModel } from '../../models/customer-models/view-models/overview-view-model';
+import { ReservationDateViewModel } from '../../models/customer-models/view-models/reservation-date-view-model';
+import { ReservationDateBindingModel } from '../../models/customer-models/binding-models/reservation-date-binding-model';
+import { FoodViewModel } from '../../models/customer-models/view-models/food-view-model';
+import { DateFoodViewModel } from '../../models/customer-models/view-models/date-food-view-model';
+import { DateFoodBindingModel } from '../../models/customer-models/binding-models/date-food-binding-model';
+import { DateTrainingViewModel } from '../../models/customer-models/view-models/date-training-view-model';
+import { DateTrainingBindingModel } from '../../models/customer-models/binding-models/date-training-binding-model';
 
 @Injectable()
 export class CustomerService extends BaseAuthorizedService {
@@ -11,22 +20,42 @@ export class CustomerService extends BaseAuthorizedService {
 		super();
 	}
 
-	// Extras configurations
-	// getReservationConfig(): Observable<> {
-	// 	return this.httpClient.get<>(baseURL + 'api/customer/getCurrentConfiguration', { headers: this.httpAuthorized });
-	// }
+	getReservationDetails(userName: string): Observable<OverviewViewModel> {
+		let params = new HttpParams().set('username', userName);
+		return this.httpClient.get<OverviewViewModel>(baseURL + 'api/customer/getReservationDetails', { headers: this.httpAuthorized , params: params });
+	}
 
-	// editConfig(model: any): Observable<> {
-	// 	return this.httpClient.post<>(baseURL + 'api/customer/editConfiguration', model, { headers: this.httpAuthorized });
-	// }
+	getReservationDatesDetails(userName: string): Observable<ReservationDateViewModel[]> {
+		let params = new HttpParams().set('username', userName);
+		return this.httpClient.get<ReservationDateViewModel[]>(baseURL + 'api/customer/getReservationDatesDetails', { headers: this.httpAuthorized , params: params });
+	}
 
-	// // Add new extra
-	// getExtras(): Observable<> {
-	// 	return this.httpClient.get<>(baseURL + 'api/customer/getExtras', { headers: this.httpAuthorized });
-	// }
+	editReservationDates(model: ReservationDateBindingModel[], userName: string): Observable<void> {
+		let params = new HttpParams().set('username', userName);
+		return this.httpClient.post<void>(baseURL + 'api/customer/setReservationDatesDetails', model, { headers: this.httpAuthorized, params: params });
+	}
 
-	// editExtras(model: any): Observable<void> {
-	// 	return this.httpClient.post<void>(baseURL + 'api/customer/setExtras', model, { headers: this.httpAuthorized });
-	// }
+	getFoodType(): Observable<FoodViewModel[]> {
+		return this.httpClient.get<FoodViewModel[]>(baseURL + 'api/customer/getAllFoods', { headers: this.httpAuthorized });
+	}
 
+	getDailyFoodMenu(userName: string): Observable<DateFoodViewModel[]> {
+		let params = new HttpParams().set('username', userName);
+		return this.httpClient.get<DateFoodViewModel[]>(baseURL + 'api/customer/getDateFood', { headers: this.httpAuthorized, params: params });
+	}
+
+	setDateFood(model: DateFoodBindingModel[], userName: string): Observable<void> {
+		let params = new HttpParams().set('username', userName);
+		return this.httpClient.post<void>(baseURL + 'api/customer/setDateFood', model, { headers: this.httpAuthorized, params: params });
+	}
+
+	getDailyTraining(userName: string): Observable<DateTrainingViewModel[]> {
+		let params = new HttpParams().set('username', userName);
+		return this.httpClient.get<DateTrainingViewModel[]>(baseURL + 'api/customer/getDateTraining', { headers: this.httpAuthorized, params: params });
+	}
+
+	setDateTraining(model: DateTrainingBindingModel[], userName: string): Observable<void> {
+		let params = new HttpParams().set('username', userName);
+		return this.httpClient.post<void>(baseURL + 'api/customer/setDateTraining', model, { headers: this.httpAuthorized, params: params });
+	}
 }

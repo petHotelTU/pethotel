@@ -37,6 +37,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DateInputsModule, DateRangeModule } from '@progress/kendo-angular-dateinputs';
 import { ExtrasComponent } from './components/customer-components/extras/extras.component';
 import { CustomerSettingsComponent } from './components/customer-components/customer-settings/customer-settings.component';
+import { CustomerService } from './services/customer-services/customer.service';
 
 
 
@@ -83,7 +84,8 @@ import { CustomerSettingsComponent } from './components/customer-components/cust
 	providers: [
 		PublicService,
 		LocalstorageService,
-		AdminService
+		AdminService,
+		CustomerService
 	],
 	bootstrap: [AppComponent]
 })

@@ -7,16 +7,79 @@
     <ngb-tab id="tab-selectbyid1">
       <ng-template ngbTabTitle>Меню</ng-template>
       <ng-template ngbTabContent>
-        <div class="form-group row">
-
+        <div class="form-group">
+          <div *ngFor="let dateFood of dateFoods; let i = index" class="card card-body">
+            <input class="form-control-plaintext" readonly [(ngModel)]="dateFoods[i].date" value="{{dateFood.date}}">
+            <div class="col-12 col-sm-6">
+              <label for="breakfast">Закуска</label>
+              <select [(ngModel)]="dateFoods[i].breakfast" class="form-control" id="breakfast">
+                <option></option>
+                <option value="1">Пилешко</option>
+                <option value="2">Свинско</option>
+                <option value="3">Зеленчуци</option>
+                <option value="4">Телешко</option>
+              </select>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="lunch">Обяд</label>
+              <select [(ngModel)]="dateFoods[i].lunch" class="form-control" id="lunch">
+                <option></option>
+                <option value="1">Пилешко</option>
+                <option value="2">Свинско</option>
+                <option value="3">Зеленчуци</option>
+                <option value="4">Телешко</option>
+              </select>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="dinner">Вечеря</label>
+              <select [(ngModel)]="dateFoods[i].dinner" class="form-control" id="dinner">
+                <option></option>
+                <option value="1">Пилешко</option>
+                <option value="2">Свинско</option>
+                <option value="3">Зеленчуци</option>
+                <option value="4">Телешко</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 offset-sm-9 col-sm-3" style="margin-bottom: 80px; margin-top: 20px;">
+            <div>
+              <button class="btn btn-block" (click)="onSaveButtonClicked()">Запази</button>
+            </div>
+          </div>
         </div>
       </ng-template>
     </ngb-tab>
     <ngb-tab id="tab-selectbyid2">
       <ng-template ngbTabTitle>Тренировка</ng-template>
       <ng-template ngbTabContent>
-        <div class="form-group row">
-
+        <div class="form-group">
+          <div *ngFor="let training of dateTraining; let i = index" class="card card-body">
+            <input class="form-control-plaintext" readonly [(ngModel)]="dateTraining[i].date" value="{{training.date}}">
+            <div class="row">
+              <div class="col-12 col-sm-5">
+                <label for="training">Тренировка</label>
+                <select [(ngModel)]="dateTraining[i].training" class="form-control" id="training">
+                  <option></option>
+                  <option value="1">Плуване</option>
+                  <option value="2">Бягане</option>
+                  <option value="3">Обща подготовка</option>
+                </select>
+              </div>
+              <div class="col-12 offset-sm-2 col-sm-5">
+                <label for="hours">Продължителност в часове</label>
+                <select [(ngModel)]="dateTraining[i].hours" class="form-control" id="hours">
+                  <option></option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 offset-sm-9 col-sm-3" style="margin-bottom: 80px; margin-top: 20px;">
+            <div>
+              <button class="btn btn-block" (click)="onSaveTrainingButtonClicked()">Запази</button>
+            </div>
+          </div>
         </div>
       </ng-template>
     </ngb-tab>

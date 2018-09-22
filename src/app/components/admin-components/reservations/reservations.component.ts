@@ -80,13 +80,22 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 	}
 
 	onNameClicked(reservation: ReservationViewModel): void {
-		this.isEditReservationDialogOpened = true;
 		this.selectedReservation = reservation;
 
 		this.subscription.add(this.adminService.getReservationDetails(reservation.id).subscribe((model: PetViewModel) => {
-			this.editReservationFormGroup = this.generateReservationFormGroup(model);
+			this.editReservationFormGroup = this.generateReservationFormGroup();
+			this.isEditReservationDialogOpened = true;
 			this.editReservationFormGroup.get('deposit').setValue(this.selectedReservation.deposit);
 			this.editReservationFormGroup.get('status').setValue(this.selectedReservation.status);
+			// pet details
+			this.editReservationFormGroup.get('name').setValue(model.name);
+			this.editReservationFormGroup.get('type').setValue(model.type);
+			this.editReservationFormGroup.get('passport').setValue(model.passport);
+			this.editReservationFormGroup.get('userId').setValue(model.userId);
+			this.editReservationFormGroup.get('age').setValue(model.age);
+			this.editReservationFormGroup.get('employeeId').setValue(model.employeeId);
+			this.editReservationFormGroup.get('breed').setValue(model.breed);
+
 		}, (errorResponse: HttpErrorResponse) => {
 			if (errorResponse.status > 500) {
 				alert('Възникна проблем със сървъра.Моля свържете се с администратор!');
@@ -175,16 +184,16 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	private generateReservationFormGroup(model: PetViewModel): FormGroup {
-		let depositFormControl = this.formBuilder.control({value: this.selectedReservation.deposit}, [Validators.required]);
-		let statusFormControl = this.formBuilder.control({value: this.selectedReservation.status}, [Validators.required]);
-		let userIdFormControl = this.formBuilder.control(model.userId);
-		let nameFormControl = this.formBuilder.control(model.name, [ Validators.required]);
-		let typeFormControl = this.formBuilder.control(model.type, [Validators.required]);
-		let passportFormControl = this.formBuilder.control(model.passport, [Validators.required]);
-		let breedFormControl = this.formBuilder.control(model.breed);
-		let ageFormControl = this.formBuilder.control(model.age);
-		let employeeIdFormControl = this.formBuilder.control(model.employeeId, [Validators.required]);
+	private generateReservationFormGroup(): FormGroup {
+		let depositFormControl = this.formBuilder.control('', [Validators.required]);
+		let statusFormControl = this.formBuilder.control('', [Validators.required]);
+		let userIdFormControl = this.formBuilder.control('');
+		let nameFormControl = this.formBuilder.control('', [ Validators.required]);
+		let typeFormControl = this.formBuilder.control('', [Validators.required]);
+		let passportFormControl = this.formBuilder.control('', [Validators.required]);
+		let breedFormControl = this.formBuilder.control('');
+		let ageFormControl = this.formBuilder.control('');
+		let employeeIdFormControl = this.formBuilder.control('', [Validators.required]);
 
 		return this.formBuilder.group({
 			userId: userIdFormControl,

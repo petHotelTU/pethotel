@@ -8,6 +8,7 @@ import { LocalstorageService } from '../../../services/localstorage.service';
 import { ReservationDateViewModel } from '../../../models/customer-models/view-models/reservation-date-view-model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ReservationDateBindingModel } from '../../../models/customer-models/binding-models/reservation-date-binding-model';
+import { parseDate } from '@progress/kendo-angular-intl';
 
 @Component({
 	selector: 'app-extras',
@@ -31,8 +32,10 @@ export class ExtrasComponent implements OnInit {
 		if (this.userName !== '' && this.userName !== null && this.userName !== undefined) {
 			this.subscription.add(this.customerService.getReservationDatesDetails(this.userName).subscribe((data: ReservationDateViewModel[]) => {
 				data.forEach((date) => {
-					date.date = new Date(date.date);
-				});
+					if (typeof date.date === 'string') {
+						date.date = parseDate(date.date);
+						date.date = this.parseToLocaleDate(date.date);
+				}});
 
 				this.dateDetails = data;
 			}, (httpErrorResponse: HttpErrorResponse) => {
@@ -47,6 +50,12 @@ export class ExtrasComponent implements OnInit {
 
 	onSaveButtonClicked(): void {
 		this.editDateDetails = this.dateDetails;
+		this.editDateDetails.forEach((date) => {
+			if (typeof date.date === 'string') {
+			date.date = new Date(date.date);
+			date.date = date.date.toISOString();
+			}
+		});
 		this.subscription.add(this.customerService.editReservationDates(this.editDateDetails, this.userName).subscribe(() => {
 			alert('Операцията беше успешна!');
 		},
@@ -56,7 +65,10 @@ export class ExtrasComponent implements OnInit {
 		}));
 	}
 
-	parseToLocaleDate(date: Date): string {
+	parseToLocaleDate(date: Date| string): string {
+		if ( typeof date === 'string') {
+			date = new Date(date);
+		}
 		return date.toLocaleDateString('bg-BG');
 	}
 

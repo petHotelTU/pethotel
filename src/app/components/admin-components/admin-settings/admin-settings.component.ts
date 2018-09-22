@@ -159,21 +159,20 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 
 
 	onAddRoomButtonClicked(room: RoomExtendedViewModel | null): void {
-		// TODO: Have to fix model binding
-		if (room !== null) {
+		this.isAddRoomDialogOpened = true;
+		if (room !== undefined && room !== null) {
 			this.isEditProduct = true;
 			this.selectedRoom = room;
 			this.newRoom.name = room.name;
-			this.newRoom.price = room.price;
+			this.newRoom.price = room.basePrice;
 		} else {
 			this.selectedRoom = new RoomExtendedViewModel();
 		}
-		this.isAddProductDialogOpened = true;
 	}
 
 	onAddRoomDialogSubmitted(): void {
 		if (!this.isEditRoom) {
-			this.subscription.add(this.adminService.addRoom(this.newRoom).subscribe(() => {
+				this.subscription.add(this.adminService.addRoom(this.newRoom).subscribe(() => {
 				this.getAllRooms();
 				alert('Записът беше успешно добавен!');
 			}, (errorResponse: HttpErrorResponse) => {

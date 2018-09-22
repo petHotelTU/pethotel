@@ -43,6 +43,7 @@
       </kendo-grid-column>
     </kendo-grid>
   </div>
+  <!-- Add pet details -->
 
   <kendo-dialog title="Добавяне на домашен любимец" *ngIf="isAddPetDialogOpened" (close)="onDialogClosed()" [minWidth]="250"
     [width]="450">
@@ -102,95 +103,96 @@
     </div>
   </kendo-dialog>
 
+  <!--Edit reservation-->
   <kendo-dialog title="Редактиране на резервация" *ngIf="isEditReservationDialogOpened" (close)="onDialogClosed()" [minWidth]="250"
-    [width]="450">
+  [width]="450">
+  <div class="form-group">
+    <h6>Редактиране на резервация</h6>
+    <hr>
+  </div>
+  <form [formGroup]="editReservationFormGroup" novalidate>
     <div class="form-group">
-      <h6>Редактиране на резервация</h6>
-      <hr>
+      <label>Име</label>
+      <input type="text" class="form-control" disabled value="{{selectedReservation.name}}">
     </div>
-    <form [formGroup]="editReservationFormGroup" novalidate>
-      <div class="form-group">
-        <label>Име</label>
-        <input type="text" class="form-control" disabled value="{{selectedReservation.name}}">
-      </div>
-      <div class="form-group">
-        <label>Начална дата</label>
-        <input type="text" class="form-control" disabled value="{{parseToLocaleDate(selectedReservation.startDate)}}">
-      </div>
-      <div class="form-group">
-        <label>Крайна дата</label>
-        <input type="text" class="form-control" disabled value="{{parseToLocaleDate(selectedReservation.endDate)}}">
-      </div>
-      <div class="form-group">
-        <label>Име на стая</label>
-        <input type="text" class="form-control" disabled value="{{selectedReservation.roomName}}">
-      </div>
-      <div class="form-group">
-        <div class="form-check">
-            <input formControlName="deposit" type="checkbox" class="form-check-input">
-            <label class="form-check-label" for="exampleCheck1">Капариран</label>
-          </div>
-      </div>
-      <div class="form-group">
-        <label>Статус</label>
-        <select formControlName="status" name="status" class="form-control">
-          <option value="0">Очаква потвърждение</option>
-          <option value="1">Потвърден</option>
-          <option value="2">Отменен</option>
-        </select>
-        <div class="text-danger" *ngIf="editReservationFormGroup.get('status').hasError('required') && editReservationFormGroup.get('status').touched">
-          Полето за задаване на статус на резервация е задължително!
+    <div class="form-group">
+      <label>Начална дата</label>
+      <input type="text" class="form-control" disabled value="{{parseToLocaleDate(selectedReservation.startDate)}}">
+    </div>
+    <div class="form-group">
+      <label>Крайна дата</label>
+      <input type="text" class="form-control" disabled value="{{parseToLocaleDate(selectedReservation.endDate)}}">
+    </div>
+    <div class="form-group">
+      <label>Име на стая</label>
+      <input type="text" class="form-control" disabled value="{{selectedReservation.roomName}}">
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+          <input formControlName="deposit" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="exampleCheck1">Капариран</label>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="name">Име</label>
-        <input formControlName="name" id="name" type="text" class="form-control" required>
-        <div class="text-danger" *ngIf="editReservationFormGroup.get('name').hasError('required') && editReservationFormGroup.get('name').touched">
-          Полето за име е задължително!
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="type">Вид</label>
-        <input formControlName="type" id="type" type="text" class="form-control" required>
-        <div class="text-danger" *ngIf="editReservationFormGroup.get('type').hasError('required') && editReservationFormGroup.get('type').touched">
-          Полето за вид е задължително!
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="type">Номер на паспорт</label>
-        <input formControlName="passport" id="passport" type="text" class="form-control" required>
-        <div class="text-danger" *ngIf="editReservationFormGroup.get('passport').hasError('required') && editReservationFormGroup.get('passport').touched">
-          Полето за номер на паспорт е задължително!
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="breed">Порода</label>
-        <input formControlName="breed" id="breed" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="age">Възраст</label>
-        <input formControlName="age" id="age" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="employeeId">Отговорно лице</label>
-        <select *ngIf="employees | async as employees" formControlName="employeeId" id="employeeId" type="text" class="form-control"
-          required>
-          <option></option>
-          <option *ngFor="let employee of employees" value="{{employee.id}}">{{employee.name}}</option>
-        </select>
-        <div class="text-danger" *ngIf="editReservationFormGroup.get('employeeId').hasError('required') && editReservationFormGroup.get('employeeId').touched">
-          Задаването на отговорно лице е задължително!
-        </div>
-      </div>
-    </form>
-    <div class="row">
-      <div class="col-6">
-        <button class="btn" (click)="onEditSubmitted()">Изпрати</button>
-      </div>
-      <div class="col-6">
-        <button class="btn" (click)="onDialogClosed()">Отказ</button>
+    </div>
+    <div class="form-group">
+      <label>Статус</label>
+      <select formControlName="status" name="status" class="form-control">
+        <option value="0">Очаква потвърждение</option>
+        <option value="1">Потвърден</option>
+        <option value="2">Отменен</option>
+      </select>
+      <div class="text-danger" *ngIf="editReservationFormGroup.get('status').hasError('required') && editReservationFormGroup.get('status').touched">
+        Полето за задаване на статус на резервация е задължително!
       </div>
     </div>
-  </kendo-dialog>
+    <div class="form-group">
+      <label for="name">Име</label>
+      <input formControlName="name" id="name" type="text" class="form-control" required>
+      <div class="text-danger" *ngIf="editReservationFormGroup.get('name').hasError('required') && editReservationFormGroup.get('name').touched">
+        Полето за име е задължително!
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="type">Вид</label>
+      <input formControlName="type" id="type" type="text" class="form-control" required>
+      <div class="text-danger" *ngIf="editReservationFormGroup.get('type').hasError('required') && editReservationFormGroup.get('type').touched">
+        Полето за вид е задължително!
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="type">Номер на паспорт</label>
+      <input formControlName="passport" id="passport" type="text" class="form-control" required>
+      <div class="text-danger" *ngIf="editReservationFormGroup.get('passport').hasError('required') && editReservationFormGroup.get('passport').touched">
+        Полето за номер на паспорт е задължително!
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="breed">Порода</label>
+      <input formControlName="breed" id="breed" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="age">Възраст</label>
+      <input formControlName="age" id="age" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="employeeId">Отговорно лице</label>
+      <select *ngIf="employees | async as employees" formControlName="employeeId" id="employeeId" type="text" class="form-control"
+        required>
+        <option></option>
+        <option *ngFor="let employee of employees" value="{{employee.id}}">{{employee.name}}</option>
+      </select>
+      <div class="text-danger" *ngIf="editReservationFormGroup.get('employeeId').hasError('required') && editReservationFormGroup.get('employeeId').touched">
+        Задаването на отговорно лице е задължително!
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-6">
+      <button class="btn" (click)="onEditSubmitted()">Изпрати</button>
+    </div>
+    <div class="col-6">
+      <button class="btn" (click)="onDialogClosed()">Отказ</button>
+    </div>
+  </div>
+</kendo-dialog>
 
 </div>
